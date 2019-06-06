@@ -1,9 +1,6 @@
 package com.github.wenslo.springbootdemo.condition.base;
 
-
 import com.github.wenslo.springbootdemo.domain.Pageable;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * @author wenhailin
@@ -11,8 +8,14 @@ import lombok.Setter;
  * @createTime 2018年12月02日 下午2:50
  * @description
  */
-@Getter
-@Setter
 public class PageCondition extends LongIdCondition {
     protected Pageable pageable;
+
+    public Pageable getPageable() {
+        return pageable;
+    }
+
+    public void setPageable(Pageable pageable) {
+        this.pageable = pageable;
+    }
 }
