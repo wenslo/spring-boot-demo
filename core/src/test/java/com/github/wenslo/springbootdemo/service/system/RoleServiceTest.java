@@ -1,14 +1,15 @@
 package com.github.wenslo.springbootdemo.service.system;
 
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.wenslo.springbootdemo.DBTestCase;
-import com.github.wenslo.springbootdemo.condition.system.RoleCondition;
-import com.github.wenslo.springbootdemo.model.system.Role;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.wenslo.springbootdemo.DBTestCase;
+import com.github.wenslo.springbootdemo.condition.system.RoleCondition;
+import com.github.wenslo.springbootdemo.model.system.Role;
 
 /**
  * @author wenhailin
@@ -29,7 +30,7 @@ public class RoleServiceTest extends DBTestCase {
         condition.setName(roleName);
         condition.setId(roleId);
         List<Role> list = roleService.getByCondition(condition);
-        Assert.assertTrue(!list.isEmpty());
+        Assert.assertFalse(list.isEmpty());
         logger.debug("testGetByCondition parameter is {},result is {}", gson.toJson(condition), list);
     }
 }
