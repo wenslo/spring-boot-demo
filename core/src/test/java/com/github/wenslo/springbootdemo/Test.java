@@ -37,6 +37,7 @@ public class Test {
         final String notExist = "{}已经存在，请检查后重新录入！";
         String result = StringUtils.replace(notExist, pattern, betweenString);
         System.out.println(result);
+        System.out.println("12213123123123");
     }
 
 
