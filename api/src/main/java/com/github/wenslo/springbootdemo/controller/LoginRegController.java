@@ -50,4 +50,5 @@ public class LoginRegController {
         return Response.success(map);
     }
 
+
 }

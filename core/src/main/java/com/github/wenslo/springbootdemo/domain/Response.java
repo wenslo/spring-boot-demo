@@ -33,6 +33,7 @@ public class Response implements Serializable {
     public static final String LOGIN_FAIL_MSG = "Username or password is error,try again please";
     public static final String LOGIN_SUCCESS_MSG = "Login success ";
     public static final String LOGOUT_SUCCESS_MSG = "Logout success ";
+    public static final String LOCKED_MSG = "User is locked ";
 
     public static final Response SUCCESS = new Response(OK.value(), OK.getReasonPhrase());
     public static final Response ERROR = new Response(INTERNAL_SERVER_ERROR.value(), INTERNAL_SERVER_ERROR.getReasonPhrase());
