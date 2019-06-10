@@ -1,24 +1,22 @@
 package com.github.wenslo.springbootdemo.model.system;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import com.github.wenslo.springbootdemo.cache.PermissionCollector;
 import com.github.wenslo.springbootdemo.convert.StringListConverter;
 import com.github.wenslo.springbootdemo.model.base.LongIdEntity;
 import com.github.wenslo.springbootdemo.permission.SystemPermission;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author wenhailin
@@ -28,7 +26,7 @@ import com.google.common.collect.Sets;
  */
 @Entity
 @Table(name = "user", indexes = {@Index(name = "username_index", columnList = "username")},
-    uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
 @NamedEntityGraph(name = "user.organizations", attributeNodes = @NamedAttributeNode(value = "organizations"))
 public class User extends LongIdEntity implements UserDetails {
 
@@ -47,7 +45,7 @@ public class User extends LongIdEntity implements UserDetails {
     /** 角色 **/
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "user_id"),},
-        inverseJoinColumns = {@JoinColumn(name = "role_id")})
+            inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private List<Role> roles;
     /** 账户是否过期 **/
     @Column(name = "account_non_expired")
@@ -64,7 +62,7 @@ public class User extends LongIdEntity implements UserDetails {
     /** 所绑定驾校信息 **/
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_organization", joinColumns = {@JoinColumn(name = "user_id")},
-        inverseJoinColumns = {@JoinColumn(name = "organization_id")})
+            inverseJoinColumns = {@JoinColumn(name = "organization_id")})
     private List<Organization> organizations;
 
     @Override
@@ -158,10 +156,8 @@ public class User extends LongIdEntity implements UserDetails {
             roles.forEach(it -> {
                 List<String> rolePermissions = it.getPermission();
                 if (!rolePermissions.isEmpty()) {
-                    boolean match =
-                        rolePermissions.stream().anyMatch(flag -> Objects.equals(flag, SystemPermission.ADMINISTRATOR));
-                    if (match)
-                        authorities.addAll(PermissionCollector.permissionSet);
+                    boolean match = rolePermissions.stream().anyMatch(flag -> Objects.equals(flag, SystemPermission.ADMINISTRATOR));
+                    if (match) authorities.addAll(PermissionCollector.permissionSet);
                     authorities.addAll(rolePermissions);
                 }
             });
@@ -172,7 +168,7 @@ public class User extends LongIdEntity implements UserDetails {
     @Override
     public String toString() {
         return "User{" + "username='" + username + '\'' + ", password='" + password + '\'' + ", permission="
-            + permission + ", roles=" + roles + ", accountNonExpired=" + accountNonExpired + ", accountNonLocked="
-            + accountNonLocked + ", credentialsNonExpired=" + credentialsNonExpired + ", enabled=" + enabled + '}';
+                + permission + ", roles=" + roles + ", accountNonExpired=" + accountNonExpired + ", accountNonLocked="
+                + accountNonLocked + ", credentialsNonExpired=" + credentialsNonExpired + ", enabled=" + enabled + '}';
     }
 }

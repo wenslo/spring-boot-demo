@@ -2,7 +2,9 @@ package com.github.wenslo.springbootdemo;
 
 import com.github.wenslo.springbootdemo.domain.Response;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.logging.log4j.util.Strings;
+import org.h2.jdbc.JdbcSQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -11,7 +13,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,21 +29,23 @@ public class MainControllerAdvice {
     /**
      * 异常处理
      */
-    @ExceptionHandler(value = {ConstraintViolationException.class, DataIntegrityViolationException.class, SQLException.class})
+    @ExceptionHandler(value = Throwable.class)
     public Response constraintViolationExceptionHandler(Throwable t) {
+        t = ExceptionUtils.getRootCause(t);
         if (t instanceof ConstraintViolationException) {
             ConstraintViolationException ex = (ConstraintViolationException) t;
             List<String> messageList = ex.getConstraintViolations().stream().map(ConstraintViolation::getMessage).collect(Collectors.toList());
             String join = Strings.join(messageList, ',');
             return Response.error(join);
         }
+
         if (t instanceof DataIntegrityViolationException) {
             DataIntegrityViolationException dataIntegrityViolationException = (DataIntegrityViolationException) t;
             String msg = getErrorMsg(dataIntegrityViolationException);
             return populateUniqueErrorTip(msg);
         }
-        if (t instanceof SQLException) {
-            SQLException jdbcSQLException = (SQLException) t;
+        if (t instanceof JdbcSQLException) {
+            JdbcSQLException jdbcSQLException = (JdbcSQLException) t;
             if ("FOREIGN KEY".contains(jdbcSQLException.getMessage())) {
                 return Response.error("绑定数据存在，无法进行删除或修改");
             }

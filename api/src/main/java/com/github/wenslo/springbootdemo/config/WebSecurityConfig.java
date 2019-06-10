@@ -76,6 +76,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         ;
         http.addFilterAt(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.csrf().disable();
+        super.configure(http);
     }
 
     @Bean

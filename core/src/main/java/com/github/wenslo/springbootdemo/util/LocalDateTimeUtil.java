@@ -11,14 +11,12 @@ import java.util.regex.Pattern;
 public class LocalDateTimeUtil {
     /**
      * populate time to yyyy-MM-dd HH:mm:ss
-     * 
+     *
      * @param text
-     *            date str
-     * @return populated str
+     * @return
      */
     public static String populateLocalDateTime(String text) {
-        if (text.isEmpty())
-            return null;
+        if (text.isEmpty()) return null;
         StringBuilder sb = new StringBuilder(text.trim());
         // yyyy-MM-dd HH:mm
         String yyyyMMddHHmmRegex = "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}?$";
