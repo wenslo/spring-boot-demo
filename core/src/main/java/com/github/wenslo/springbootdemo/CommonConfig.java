@@ -1,12 +1,11 @@
 package com.github.wenslo.springbootdemo;
 
-import com.google.common.eventbus.AsyncEventBus;
+import com.google.common.eventbus.EventBus;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 /**
  * @author wenhailin
@@ -17,22 +16,19 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 @Configuration
 public class CommonConfig {
 
+
     @Bean
     public Gson gson() {
         return new GsonBuilder().create();
     }
 
     @Bean
-    public ThreadPoolTaskExecutor threadPoolTaskExecutor() {
-        return new ThreadPoolTaskExecutor();
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 
-
-    @Autowired
-    private ThreadPoolTaskExecutor threadPoolTaskExecutor;
-
     @Bean
-    public AsyncEventBus eventBus() {
-        return new AsyncEventBus(threadPoolTaskExecutor);
+    public EventBus eventBus() {
+        return new EventBus();
     }
 }
