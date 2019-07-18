@@ -10,7 +10,11 @@ import org.apache.commons.lang3.StringUtils;
  * @createTime 2018年12月11日 上午10:57
  * @description
  */
-public class Test {
+public class CommonTest {
+    @org.junit.Test
+    private void test(){
+
+    }
     public static void main(String[] args) {
         Gson gson = new GsonBuilder().create();
 //        Permission permission = new Permission("USER_ADD", "用户添加", true, "用户相关权限");
@@ -31,12 +35,13 @@ public class Test {
 //            Arr arr = value.stream().max(Comparator.comparing(Arr::getB)).get();
 //            System.out.println(" a is " + key + ", max b is " + arr.getB() + ", c is " + arr.getC());
 //        });
-        String msg = "'2123123123'是一个数字";
-        String betweenString = StringUtils.substringBetween(msg, "'", "'");
-        final String pattern = "{}";
-        final String notExist = "{}已经存在，请检查后重新录入！";
-        String result = StringUtils.replace(notExist, pattern, betweenString);
-        System.out.println(result);
+//        Stringg msg = "'2123123123'是一个数字";
+//        String betweenString = StringUtils.substringBetween(msg, "'", "'");
+//        final String pattern = "{}";
+//        final String notExist = "{}已经存在，请检查后重新录入！";
+//        String result = StringUtils.replace(notExist, pattern, betweenString);
+//        System.out.println(result);
+
         System.out.println("12213123123123");
     }
 
