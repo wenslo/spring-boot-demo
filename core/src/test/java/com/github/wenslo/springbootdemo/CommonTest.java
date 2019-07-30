@@ -11,10 +11,6 @@ import org.apache.commons.lang3.StringUtils;
  * @description
  */
 public class CommonTest {
-    @org.junit.Test
-    private void test(){
-
-    }
     public static void main(String[] args) {
         Gson gson = new GsonBuilder().create();
 //        Permission permission = new Permission("USER_ADD", "用户添加", true, "用户相关权限");
