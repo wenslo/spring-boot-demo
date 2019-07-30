@@ -30,7 +30,7 @@ public class UserRepositoryTest extends DBTestCase {
         List<User> list = userRepository.findAll();
         logger.debug("list size is {}", list.size());
         logger.debug("list data is {}", list);
-        Assert.assertTrue(!list.isEmpty());
+        Assert.assertFalse(list.isEmpty());
     }
 
     @Test
