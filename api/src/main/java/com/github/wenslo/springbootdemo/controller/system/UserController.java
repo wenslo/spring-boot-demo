@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,17 +46,44 @@ public class UserController extends BaseController {
         return Response.SUCCESS;
     }
 
-    @RequestMapping("/queryAll")
-    public Response getAll() {
-        logger.debug("The current thread id is {} ", Thread.currentThread().getId());
-        return Response.success(userService.getAll());
-    }
 
     @RequestMapping("/queryByPage")
     public Page<User> queryByPage(@RequestBody UserCondition condition) {
         logger.debug("The currently operator is {}, condition is {}", getLoginUsername(), gson.toJson(condition));
         return userService.getByCondition(condition, condition.getPageable());
     }
+
+    @RequestMapping("/remove/{id}")
+    public Response remove(@PathVariable Long id) {
+        //TODO
+        userService.remove(id);
+        return Response.SUCCESS;
+    }
+
+    @RequestMapping("/update")
+    public Response update(@RequestBody User user) {
+        //TODO
+        return Response.SUCCESS;
+    }
+
+    @RequestMapping("/detail/{id}")
+    public Response detail(@PathVariable Long id) {
+        //TODO
+        return Response.success(userService.get(id));
+    }
+
+    @RequestMapping("/reset")
+    public Response reset() {
+        //TODO
+        return Response.SUCCESS;
+    }
+
+    @RequestMapping("/status")
+    public Response changeStatus() {
+        //TODO
+        return Response.SUCCESS;
+    }
+
 
     @RequestMapping("/export")
     public void export(HttpServletResponse response) throws IOException {
