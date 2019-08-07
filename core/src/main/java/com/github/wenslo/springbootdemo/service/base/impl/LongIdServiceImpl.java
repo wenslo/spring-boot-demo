@@ -36,7 +36,7 @@ public abstract class LongIdServiceImpl<T extends LongIdEntity, C extends LongId
 
     @Override
     public T get(Long id) {
-        return repository.getOne(id);
+        return repository.findById(id).orElse(null);
     }
 
     @Override
@@ -86,6 +86,7 @@ public abstract class LongIdServiceImpl<T extends LongIdEntity, C extends LongId
 
     /**
      * The page list query condition populate,so far , use BooleanBuilder ,if we have any batter method , try replace it
+     *
      * @param condition query condition
      * @return populated query condition
      */
@@ -98,6 +99,7 @@ public abstract class LongIdServiceImpl<T extends LongIdEntity, C extends LongId
 
     /**
      * LongIdEntity condition building
+     *
      * @param condition query condition
      * @return The completed basic query condition constructed
      * <p>On many tests, the reflect speed time is 6ms </p>

@@ -1,15 +1,13 @@
 package com.github.wenslo.springbootdemo.model.system;
 
-import java.util.List;
-
-import javax.persistence.*;
-
+import com.github.wenslo.springbootdemo.enums.common.DeleteFlag;
+import com.github.wenslo.springbootdemo.model.base.LongIdEntity;
 import org.hibernate.annotations.ResultCheckStyle;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-import com.github.wenslo.springbootdemo.enums.common.DeleteFlag;
-import com.github.wenslo.springbootdemo.model.base.LongIdEntity;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * @author wenhailin
@@ -21,22 +19,30 @@ import com.github.wenslo.springbootdemo.model.base.LongIdEntity;
 @SQLDelete(sql = "update organization set delete_flag = 'DELETED' where id = ?", check = ResultCheckStyle.COUNT)
 @Where(clause = "delete_flag <> 'DELETED'")
 public class Organization extends LongIdEntity {
-    /** 全称 **/
+    /**
+     * 全称
+     **/
     private String fullName;
-    /** 简称 **/
+    /**
+     * 简称
+     **/
     private String name;
-    /** 地区 **/
+    /**
+     * 地区
+     **/
     private String districtCode;
-    /** 联系地址 **/
+    /**
+     * 联系地址
+     **/
     private String address;
-    /** 联系人名称 **/
+    /**
+     * 联系人名称
+     **/
     private String contractName;
-    /** 联系人电话 **/
+    /**
+     * 联系人电话
+     **/
     private String contractPhone;
-    /** 是否为总部 **/
-    private Boolean headquarters;
-    /** 总部ID **/
-    private Long headquartersId;
     @Enumerated(EnumType.STRING)
     private DeleteFlag deleteFlag;
     @Transient
@@ -47,18 +53,17 @@ public class Organization extends LongIdEntity {
         this.deleteFlag = DeleteFlag.DELETED;
     }
 
-    public Organization() {}
+    public Organization() {
+    }
 
     public Organization(String fullName, String name, String districtCode, String address, String contractName,
-        String contractPhone, Boolean headquarters, Long headquartersId, DeleteFlag deleteFlag) {
+                        String contractPhone, DeleteFlag deleteFlag) {
         this.fullName = fullName;
         this.name = name;
         this.districtCode = districtCode;
         this.address = address;
         this.contractName = contractName;
         this.contractPhone = contractPhone;
-        this.headquarters = headquarters;
-        this.headquartersId = headquartersId;
         this.deleteFlag = deleteFlag;
     }
 
@@ -110,21 +115,6 @@ public class Organization extends LongIdEntity {
         this.contractPhone = contractPhone;
     }
 
-    public Boolean getHeadquarters() {
-        return headquarters;
-    }
-
-    public void setHeadquarters(Boolean headquarters) {
-        this.headquarters = headquarters;
-    }
-
-    public Long getHeadquartersId() {
-        return headquartersId;
-    }
-
-    public void setHeadquartersId(Long headquartersId) {
-        this.headquartersId = headquartersId;
-    }
 
     public DeleteFlag getDeleteFlag() {
         return deleteFlag;
@@ -145,8 +135,8 @@ public class Organization extends LongIdEntity {
     @Override
     public String toString() {
         return "Organization{" + "fullName='" + fullName + '\'' + ", name='" + name + '\'' + ", districtCode='"
-            + districtCode + '\'' + ", address='" + address + '\'' + ", contractName='" + contractName + '\''
-            + ", contractPhone='" + contractPhone + '\'' + ", headquarters=" + headquarters + ", headquartersId="
-            + headquartersId + ", deleteFlag=" + deleteFlag + '}';
+                + districtCode + '\'' + ", address='" + address + '\'' + ", contractName='" + contractName + '\''
+                + ", contractPhone='" + contractPhone + '\''
+                + ", deleteFlag=" + deleteFlag + '}';
     }
 }

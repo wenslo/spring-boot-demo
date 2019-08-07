@@ -26,17 +26,10 @@ public class DepartmentRepositoryTest extends DBTestCase {
     public void testFindByOrganizationIdEquals() {
         Long organizationId = -1L;
         List<Department> data = departmentRepository.findByOrganizationIdEquals(organizationId).get();
-        Assert.assertTrue(!data.isEmpty());
+        Assert.assertFalse(data.isEmpty());
         logger.debug("findByOrganizationIdEquals parameter is {},result is {}", organizationId, data);
     }
 
-    @Test
-    public void testFindByOrganizationHeadquartersIdEquals() {
-        Long organizationId = null;
-        List<Department> data = departmentRepository.findByOrganizationHeadquartersIdEquals(organizationId).get();
-        Assert.assertTrue(!data.isEmpty());
-        logger.debug("testFindByOrganizationHeadquartersIdEquals parameter is {},result is {}", organizationId, data);
-    }
 
     @Test
     public void testFindByParentDepartmentIdIn() {

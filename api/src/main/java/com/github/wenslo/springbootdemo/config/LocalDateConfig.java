@@ -1,18 +1,9 @@
 package com.github.wenslo.springbootdemo.config;
 
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Objects;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
@@ -20,6 +11,15 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import com.github.wenslo.springbootdemo.util.LocalDateTimeUtil;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /**
  * @author wenhailin
@@ -29,11 +29,17 @@ import com.github.wenslo.springbootdemo.util.LocalDateTimeUtil;
  */
 @Configuration
 public class LocalDateConfig {
-    /** 默认日期时间格式 */
+    /**
+     * 默认日期时间格式
+     */
     private static final String DEFAULT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
-    /** 默认日期格式 */
+    /**
+     * 默认日期格式
+     */
     private static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
-    /** 默认时间格式 */
+    /**
+     * 默认时间格式
+     */
     private static final String DEFAULT_TIME_FORMAT = "HH:mm:ss";
 
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DEFAULT_DATE_TIME_FORMAT);
@@ -41,7 +47,6 @@ public class LocalDateConfig {
     private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT);
 
     @Bean
-
     public ObjectMapper objectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
         JavaTimeModule javaTimeModule = new JavaTimeModule();
@@ -55,20 +60,21 @@ public class LocalDateConfig {
         javaTimeModule.addSerializer(LocalDateTime.class, new JsonSerializer<LocalDateTime>() {
             @Override
             public void serialize(LocalDateTime localDateTime, JsonGenerator jsonGenerator,
-                SerializerProvider serializerProvider) throws IOException {
+                                  SerializerProvider serializerProvider) throws IOException {
                 jsonGenerator.writeString(dateTimeFormatter.format(localDateTime));
             }
         });
         javaTimeModule.addDeserializer(LocalDateTime.class, new JsonDeserializer<LocalDateTime>() {
             @Override
             public LocalDateTime deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
-                throws IOException {
+                    throws IOException {
                 String string = LocalDateTimeUtil.populateLocalDateTime(jsonParser.getValueAsString());
                 return Objects.isNull(string) ? null : LocalDateTime.parse(string, dateTimeFormatter);
             }
         });
 
-        objectMapper.registerModule(javaTimeModule).registerModule(new ParameterNamesModule());
+        objectMapper.registerModule(javaTimeModule).registerModule(new ParameterNamesModule()).registerModule(new Hibernate5Module());
+        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         return objectMapper;
     }
 }

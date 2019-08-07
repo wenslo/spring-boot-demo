@@ -1,8 +1,8 @@
 package com.github.wenslo.springbootdemo.condition.system;
 
-import java.io.Serializable;
+import com.github.wenslo.springbootdemo.condition.base.PageCondition;
 
-import com.github.wenslo.springbootdemo.condition.base.LongIdCondition;
+import java.io.Serializable;
 
 /**
  * @author wenhailin
@@ -10,7 +10,7 @@ import com.github.wenslo.springbootdemo.condition.base.LongIdCondition;
  * @createTime 2019-01-02 10:53
  * @description 机构查询条件
  */
-public class OrganizationCondition extends LongIdCondition implements Serializable {
+public class OrganizationCondition extends PageCondition implements Serializable {
     private String name;
     private String districtCode;
 

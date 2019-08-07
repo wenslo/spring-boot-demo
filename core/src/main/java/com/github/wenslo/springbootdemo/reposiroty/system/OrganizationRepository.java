@@ -5,12 +5,10 @@ import com.github.wenslo.springbootdemo.model.system.Organization;
 import com.github.wenslo.springbootdemo.reposiroty.base.LongIdRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * @author wenhailin
@@ -28,6 +26,4 @@ public interface OrganizationRepository extends LongIdRepository<Organization, L
 
     public Optional<List<Organization>> findTop30ByNameStartingWith(String name);
 
-    @Async
-    public CompletableFuture<List<Organization>> findByHeadquartersId(Long headquartersId);
 }

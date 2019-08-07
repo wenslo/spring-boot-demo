@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * @author wenhailin
@@ -29,7 +28,7 @@ public class OrganizationRepositoryTest extends DBTestCase {
     public void testFindByDistrictCode() {
         String districtCode = "11";
         List<Organization> organizations = organizationRepository.findByDistrictCode(districtCode).orElse(Lists.newArrayList());
-        Assert.assertTrue(!organizations.isEmpty());
+        Assert.assertFalse(organizations.isEmpty());
         logger.debug("testFindByDistrictCode parameter is {}, result is {}", districtCode, organizations);
     }
 
@@ -53,15 +52,4 @@ public class OrganizationRepositoryTest extends DBTestCase {
         Assert.assertTrue(Objects.isNull(organization));
     }
 
-    @Test
-    public void testFindByHeadquartersId() throws InterruptedException {
-        Long headquartersId = null;
-        logger.debug("findByHeadquartersId is begin");
-        CompletableFuture<List<Organization>> future = organizationRepository.findByHeadquartersId(headquartersId);
-        future.thenAccept(it -> {
-            logger.debug("async completableFuture is complete");
-        });
-        logger.debug("Invoked findByHeadquartersId ");
-        Thread.sleep(500);
-    }
 }

@@ -17,13 +17,9 @@ import java.util.Optional;
 public interface OrganizationBasicRepository<T extends OrganizationBasicEntity, C extends Serializable> extends LongIdRepository<T, C> {
     /**
      * 根据机构ID查询
+     *
      * @param organizationId 机构ID
      */
     public Optional<List<T>> findByOrganizationIdEquals(Long organizationId);
 
-    /**
-     * 根据总部ID查询
-     * @param headquartersId 总部ID
-     */
-    public Optional<List<T>> findByOrganizationHeadquartersIdEquals(Long headquartersId);
 }

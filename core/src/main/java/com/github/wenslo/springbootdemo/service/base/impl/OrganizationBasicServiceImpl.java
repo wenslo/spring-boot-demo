@@ -42,8 +42,4 @@ public abstract class OrganizationBasicServiceImpl<T extends OrganizationBasicEn
         return repository.findByOrganizationIdEquals(organizationId);
     }
 
-    @Override
-    public Optional<List<T>> findByHeadquartersId(Long headquartersId) {
-        return repository.findByOrganizationHeadquartersIdEquals(headquartersId);
-    }
 }

@@ -138,6 +138,7 @@ project(":core") {
 project(":api") {
     dependencies {
         api(project(":core"))
+        api("com.fasterxml.jackson.datatype:jackson-datatype-hibernate5")
         testApi("org.springframework.boot:spring-boot-starter-test")
         testApi("org.springframework.security:spring-security-test")
     }

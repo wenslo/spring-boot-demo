@@ -16,13 +16,8 @@ public interface OrganizationBasicService<T extends OrganizationBasicEntity, C e
         extends LongIdService<T, C> {
     /**
      * 根据机构ID查询
+     *
      * @param organizationId 机构ID
      */
     public Optional<List<T>> findByOrganizationId(Long organizationId);
-
-    /**
-     * 根据总部ID查询
-     * @param headquartersId 总部ID
-     */
-    public Optional<List<T>> findByHeadquartersId(Long headquartersId);
 }
