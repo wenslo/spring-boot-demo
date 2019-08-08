@@ -14,12 +14,8 @@ import java.util.List;
 public class SimpleUser extends LongIdDTO {
     /** 用户名 **/
     protected String username;
-    /** 责任人 **/
-    protected String responsiblePerson;
-    /** 手机号 **/
-    protected String phone;
-    /** 备注 **/
-    protected String note;
+    /** 昵称 **/
+    protected String nickname;
     /** 角色信息 **/
     protected List<SimpleRole> roles;
 
@@ -31,28 +27,13 @@ public class SimpleUser extends LongIdDTO {
         this.username = username;
     }
 
-    public String getResponsiblePerson() {
-        return responsiblePerson;
+
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setResponsiblePerson(String responsiblePerson) {
-        this.responsiblePerson = responsiblePerson;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public List<SimpleRole> getRoles() {
@@ -63,13 +44,12 @@ public class SimpleUser extends LongIdDTO {
         this.roles = roles;
     }
 
+
     @Override
     public String toString() {
         return "SimpleUser{" +
                 "username='" + username + '\'' +
-                ", responsiblePerson='" + responsiblePerson + '\'' +
-                ", phone='" + phone + '\'' +
-                ", note='" + note + '\'' +
+                ", nickname='" + nickname + '\'' +
                 ", roles=" + roles +
                 '}';
     }

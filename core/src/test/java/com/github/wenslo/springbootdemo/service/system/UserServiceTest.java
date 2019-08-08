@@ -31,7 +31,7 @@ public class UserServiceTest extends DBTestCase {
         Pageable pageable = new Pageable();
         Page<User> page = userService.getByCondition(condition, pageable);
         logger.debug("page data is {}", page);
-        Assert.assertTrue(!page.isEmpty());
+        Assert.assertFalse(page.isEmpty());
     }
 
     @Test
@@ -39,6 +39,7 @@ public class UserServiceTest extends DBTestCase {
         User user = new User();
         user.setUsername("Warren Wen");
         user.setPassword("111111");
+        user.setNickname("小黄");
         logger.debug("parameter is {}", user);
         userService.save(user);
         Assert.assertTrue(Objects.nonNull(user.getId()));

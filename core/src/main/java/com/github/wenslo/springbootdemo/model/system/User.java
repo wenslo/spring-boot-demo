@@ -38,6 +38,9 @@ public class User extends LongIdEntity implements UserDetails {
     @NotBlank(message = "密码不能为空")
     @Column(name = "password")
     private String password;
+    @NotBlank(message = "昵称不能为空")
+    @Column(name = "nickname")
+    private String nickname;
     /** 权限 **/
     @Column(name = "permission", length = 1024)
     @Convert(converter = StringListConverter.class)
@@ -64,6 +67,14 @@ public class User extends LongIdEntity implements UserDetails {
     @JoinTable(name = "user_organization", joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "organization_id")})
     private List<Organization> organizations;
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 
     @Override
     public String getUsername() {
@@ -167,8 +178,15 @@ public class User extends LongIdEntity implements UserDetails {
 
     @Override
     public String toString() {
-        return "User{" + "username='" + username + '\'' + ", password='" + password + '\'' + ", permission="
-                + permission + ", roles=" + roles + ", accountNonExpired=" + accountNonExpired + ", accountNonLocked="
-                + accountNonLocked + ", credentialsNonExpired=" + credentialsNonExpired + ", enabled=" + enabled + '}';
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", permission=" + permission +
+                ", accountNonExpired=" + accountNonExpired +
+                ", accountNonLocked=" + accountNonLocked +
+                ", credentialsNonExpired=" + credentialsNonExpired +
+                ", enabled=" + enabled +
+                '}';
     }
 }
