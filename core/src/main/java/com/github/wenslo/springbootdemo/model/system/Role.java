@@ -1,7 +1,7 @@
 package com.github.wenslo.springbootdemo.model.system;
 
 import com.github.wenslo.springbootdemo.convert.StringListConverter;
-import com.github.wenslo.springbootdemo.model.base.OrganizationBasicEntity;
+import com.github.wenslo.springbootdemo.model.base.LongIdEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -16,7 +16,7 @@ import java.util.List;
  * @description
  */
 @Entity
-public class Role extends OrganizationBasicEntity {
+public class Role extends LongIdEntity {
     /** 角色名称 **/
     @NotEmpty
     @Column(name = "name", unique = true, length = 128)

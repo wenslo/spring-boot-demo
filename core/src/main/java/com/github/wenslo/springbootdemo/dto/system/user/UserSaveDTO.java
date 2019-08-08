@@ -8,5 +8,21 @@ package com.github.wenslo.springbootdemo.dto.system.user;
  */
 public class UserSaveDTO extends SimpleUser {
     private String password;
-    private Boolean enabled;
+    private boolean enabled;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 }

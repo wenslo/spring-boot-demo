@@ -1,14 +1,18 @@
 package com.github.wenslo.springbootdemo.controller.system;
 
+import com.github.wenslo.springbootdemo.condition.system.RoleCondition;
 import com.github.wenslo.springbootdemo.condition.system.UserCondition;
 import com.github.wenslo.springbootdemo.controller.BaseController;
 import com.github.wenslo.springbootdemo.domain.Response;
 import com.github.wenslo.springbootdemo.dto.system.StatusDTO;
+import com.github.wenslo.springbootdemo.dto.system.role.SimpleRole;
 import com.github.wenslo.springbootdemo.dto.system.user.ResetPasswordDTO;
 import com.github.wenslo.springbootdemo.dto.system.user.UserDetailDTO;
 import com.github.wenslo.springbootdemo.dto.system.user.UserPageDTO;
 import com.github.wenslo.springbootdemo.dto.system.user.UserSaveDTO;
+import com.github.wenslo.springbootdemo.model.system.Role;
 import com.github.wenslo.springbootdemo.model.system.User;
+import com.github.wenslo.springbootdemo.service.system.RoleService;
 import com.github.wenslo.springbootdemo.service.system.UserService;
 import com.github.wenslo.springbootdemo.util.BeanUtil;
 import com.github.wenslo.springbootdemo.util.ExcelUtil;
@@ -29,6 +33,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -45,13 +50,17 @@ public class UserController extends BaseController {
     @Autowired
     private UserService userService;
     @Autowired
+    private RoleService roleService;
+    @Autowired
     private ExcelUtil excelUtil;
 
     @RequestMapping("/save")
     public Response save(@RequestBody UserSaveDTO dto) {
         User user = new User();
-        BeanUtil.copyProperties(dto, user);
-//        user.setRoles(Lists.newArrayList(dto.getRole()));
+        if (Objects.nonNull(dto.getId())) {
+            BeanUtil.copyProperties(dto, user, "password");
+        }
+        user.setRoles(dto.getRoles().stream().map(role -> modelMapper.map(role, Role.class)).collect(Collectors.toList()));
         userService.save(user);
         logger.debug("That be saved user is {}", gson.toJson(user));
         return Response.SUCCESS;
@@ -68,7 +77,7 @@ public class UserController extends BaseController {
     private Page<UserPageDTO> pageTranslate(Page<User> page) {
         List<UserPageDTO> resultContent = page.getContent().stream().map(it -> {
             UserPageDTO dto = modelMapper.map(it, UserPageDTO.class);
-//            dto.setRole(it.getRoles().stream().findFirst().orElse(null));
+            dto.setRoles(it.getRoles().stream().map(role -> modelMapper.map(role, SimpleRole.class)).collect(Collectors.toList()));
             return dto;
         }).collect(Collectors.toList());
         return new PageImpl<>(resultContent, page.getPageable(), page.getTotalElements());
@@ -81,47 +90,35 @@ public class UserController extends BaseController {
         return Response.SUCCESS;
     }
 
-    @RequestMapping("/update")
-    public Response update(@RequestBody UserDetailDTO user) {
-        logger.debug("be update user is {}", gson.toJson(user));
-//        User beUpdateUser = userService.get(user.getId());
-//        BeanUtil.copyProperties(user, beUpdateUser);
-//        beUpdateUser.setRoles(Lists.newArrayList(user.getRole()));
-//        userService.save(beUpdateUser);
-        return Response.SUCCESS;
-    }
-
     @RequestMapping("/detail/{id}")
     public Response detail(@PathVariable Long id) {
         User user = userService.get(id);
         UserDetailDTO dto = modelMapper.map(user, UserDetailDTO.class);
-//        dto.setRole(user.getRoles().stream().findFirst().orElse(null));
         return Response.success(dto);
     }
 
     @RequestMapping("/reset")
     public Response reset(@RequestBody ResetPasswordDTO dto) {
-//        logger.debug("be reset password user id is  {}", dto.getId());
-//        User user = userService.get(dto.getId());
-//        user.setPassword(dto.getPassword());
-//        userService.save(user);
+        logger.debug("be reset password user id is  {}", dto.getId());
+        User user = userService.get(dto.getId());
+        user.setPassword(dto.getPassword());
+        userService.save(user);
         return Response.SUCCESS;
     }
 
     @RequestMapping("/status")
     public Response changeStatus(@RequestBody StatusDTO dto) {
-//        User user = userService.get(dto.getId());
-//        user.setEnabled(dto.isEnabled());
-//        userService.save(user);
+        User user = userService.get(dto.getId());
+        user.setEnabled(dto.isEnabled());
+        userService.save(user);
         return Response.SUCCESS;
     }
 
     @RequestMapping("/getAllRole")
     public Response queryAll() {
-//        RoleCondition roleCondition = new RoleCondition();
-//        roleCondition.setEnabled(true);
-//        return Response.success(roleRepository.findAll(roleRepository.predicateByCondition(roleCondition)));
-        return null;
+        RoleCondition roleCondition = new RoleCondition();
+        roleCondition.setEanbled(true);
+        return Response.success(roleService.getByCondition(roleCondition));
     }
 
     @RequestMapping("/export")

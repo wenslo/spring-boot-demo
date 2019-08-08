@@ -59,7 +59,7 @@ public class User extends LongIdEntity implements UserDetails {
     /** 账户是否启用 **/
     @Column(name = "enabled")
     private boolean enabled;
-    /** 所绑定驾校信息 **/
+    /** 所绑定机构信息 **/
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_organization", joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "organization_id")})

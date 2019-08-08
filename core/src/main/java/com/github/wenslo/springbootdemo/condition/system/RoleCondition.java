@@ -10,6 +10,16 @@ import com.github.wenslo.springbootdemo.condition.base.PageCondition;
  */
 public class RoleCondition extends PageCondition {
     private String name;
+    private Boolean eanbled;
+
+    public Boolean getEanbled() {
+        return eanbled;
+    }
+
+    public void setEanbled(Boolean eanbled) {
+        this.eanbled = eanbled;
+    }
+
 
     public String getName() {
         return name;
@@ -23,8 +33,7 @@ public class RoleCondition extends PageCondition {
     public String toString() {
         return "RoleCondition{" +
                 "name='" + name + '\'' +
-                ", id=" + id +
-                ", pageable=" + pageable +
+                ", eanbled=" + eanbled +
                 '}';
     }
 }
