@@ -15,10 +15,18 @@ public class RolePageDTO extends LongIdDTO {
     private String description;
     /** 启用状态 **/
     private Boolean enabled;
-    /** 是否可删除 **/
-    private Boolean deletable = true;
 
     public RolePageDTO(Long id) {
         this.id = id;
+    }
+
+    public RolePageDTO(String name, String description, Boolean enabled) {
+        this.name = name;
+        this.description = description;
+        this.enabled = enabled;
+    }
+
+    public RolePageDTO(String name) {
+        this.name = name;
     }
 }

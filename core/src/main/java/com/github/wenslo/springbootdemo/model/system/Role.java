@@ -1,14 +1,13 @@
 package com.github.wenslo.springbootdemo.model.system;
 
-import java.util.List;
+import com.github.wenslo.springbootdemo.convert.StringListConverter;
+import com.github.wenslo.springbootdemo.model.base.OrganizationBasicEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotEmpty;
-
-import com.github.wenslo.springbootdemo.convert.StringListConverter;
-import com.github.wenslo.springbootdemo.model.base.OrganizationBasicEntity;
+import java.util.List;
 
 /**
  * @author wenhailin
@@ -30,6 +29,21 @@ public class Role extends OrganizationBasicEntity {
     @Column(name = "permission", length = 1024)
     @Convert(converter = StringListConverter.class)
     private List<String> permission;
+
+    public Role() {
+    }
+
+    public Role(@NotEmpty String name, String description, boolean enabled, List<String> permission) {
+        this.name = name;
+        this.description = description;
+        this.enabled = enabled;
+        this.permission = permission;
+    }
+
+    public Role(Long id) {
+        this.id = id;
+    }
+
 
     public String getName() {
         return name;
@@ -66,6 +80,6 @@ public class Role extends OrganizationBasicEntity {
     @Override
     public String toString() {
         return "Role{" + "name='" + name + '\'' + ", description='" + description + '\'' + ", enabled=" + enabled
-            + ", permission=" + permission + '}';
+                + ", permission=" + permission + '}';
     }
 }
