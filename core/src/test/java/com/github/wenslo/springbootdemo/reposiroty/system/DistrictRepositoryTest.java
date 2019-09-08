@@ -23,7 +23,7 @@ public class DistrictRepositoryTest extends DBTestCase {
         Optional<List<District>> optional = districtRepository.findByCodeLength(length);
         List<District> districts = optional.orElse(null);
         Assert.assertNotNull(districts);
-        Assert.assertTrue(!districts.isEmpty());
+        Assert.assertFalse(districts.isEmpty());
         logger.debug("testFindByCodeLength result is {} ", gson.toJson(districts));
     }
 
