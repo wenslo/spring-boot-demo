@@ -1,21 +1,33 @@
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 buildscript {
-    val repos by extra {
-        listOf(
-                "http://maven.aliyun.com/nexus/content/groups/public",
-                "https://jcenter.bintray.com/",
-                "https://plugins.gradle.org/m2/",
-                "https://repo.spring.io/milestone"
-        )
-    }
     repositories {
-        for (u in repos) {
-            maven(u)
-        }
-        google()
-        mavenCentral()
+//        val repos by extra {
+//            listOf(
+//                    "http://maven.aliyun.com/nexus/content/groups/public",
+//                    "https://jcenter.bintray.com/",
+//                    "https://plugins.gradle.org/m2/",
+//                    "https://repo.spring.io/milestone"
+//            )
+//        }
+//        repositories {
+//            for (u in repos) {
+//                maven(u)
+//            }
+//            google()
+//            mavenCentral()
+//            mavenLocal()
+//        }
         mavenLocal()
+        maven("http://127.0.0.1:8081/repository/maven-public/"){
+            credentials(HttpHeaderCredentials::class.java) {
+                name = "wenslo-user"
+                value = "123456"
+            }
+            authentication {
+                register("header", HttpHeaderAuthentication::class)
+            }
+        }
     }
 }
 plugins {
@@ -41,8 +53,14 @@ val querydslVersion = "4.2.1"
 allprojects {
     repositories {
         mavenLocal()
-        for (u in repos) {
-            maven(u)
+        maven("http://127.0.0.1:8081/repository/maven-public/"){
+            credentials(HttpHeaderCredentials::class.java) {
+                name = "admin"
+                value = "admin"
+            }
+            authentication {
+                register("header", HttpHeaderAuthentication::class)
+            }
         }
     }
 }
@@ -112,6 +130,8 @@ subprojects {
 
 project(":core") {
     dependencies {
+        implementation("com.github.wenslo.fluent:fluent-security:1.0-SNAPSHOT@jar")
+
         api("org.springframework.boot:spring-boot-starter-data-jpa")
         api("org.springframework.boot:spring-boot-starter-security")
         api("org.springframework.boot:spring-boot-starter-web")
