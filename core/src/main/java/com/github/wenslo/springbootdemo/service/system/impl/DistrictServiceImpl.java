@@ -2,6 +2,7 @@ package com.github.wenslo.springbootdemo.service.system.impl;
 
 import java.util.List;
 
+import com.github.wenslo.fluent.data.service.impl.LongIdServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,7 +11,6 @@ import com.github.wenslo.springbootdemo.condition.system.DistrictCondition;
 import com.github.wenslo.springbootdemo.enums.common.DistrictType;
 import com.github.wenslo.springbootdemo.model.system.District;
 import com.github.wenslo.springbootdemo.reposiroty.system.DistrictRepository;
-import com.github.wenslo.springbootdemo.service.base.impl.LongIdServiceImpl;
 import com.github.wenslo.springbootdemo.service.system.DistrictService;
 import com.google.common.collect.Lists;
 

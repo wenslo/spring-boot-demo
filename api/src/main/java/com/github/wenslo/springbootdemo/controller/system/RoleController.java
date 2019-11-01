@@ -3,7 +3,6 @@ package com.github.wenslo.springbootdemo.controller.system;
 import com.github.wenslo.springbootdemo.cache.PermissionCollector;
 import com.github.wenslo.springbootdemo.condition.system.RoleCondition;
 import com.github.wenslo.springbootdemo.controller.BaseController;
-import com.github.wenslo.springbootdemo.domain.Response;
 import com.github.wenslo.springbootdemo.dto.system.StatusDTO;
 import com.github.wenslo.springbootdemo.model.system.Role;
 import com.github.wenslo.springbootdemo.service.system.RoleService;

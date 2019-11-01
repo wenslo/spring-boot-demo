@@ -1,7 +1,7 @@
 package com.github.wenslo.springbootdemo.model.system;
 
+import com.github.wenslo.fluent.data.model.LongIdEntity;
 import com.github.wenslo.springbootdemo.enums.common.DeleteFlag;
-import com.github.wenslo.springbootdemo.model.base.LongIdEntity;
 import org.hibernate.annotations.ResultCheckStyle;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;

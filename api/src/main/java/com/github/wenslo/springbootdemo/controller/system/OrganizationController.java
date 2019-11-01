@@ -2,7 +2,6 @@ package com.github.wenslo.springbootdemo.controller.system;
 
 import com.github.wenslo.springbootdemo.condition.system.OrganizationCondition;
 import com.github.wenslo.springbootdemo.controller.BaseController;
-import com.github.wenslo.springbootdemo.domain.Response;
 import com.github.wenslo.springbootdemo.model.system.Organization;
 import com.github.wenslo.springbootdemo.service.system.OrganizationService;
 import org.slf4j.Logger;

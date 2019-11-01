@@ -1,6 +1,6 @@
 package com.github.wenslo.springbootdemo.dto.system.user;
 
-import com.github.wenslo.springbootdemo.dto.LongIdDTO;
+import com.github.wenslo.fluent.core.dto.LongIdDTO;
 import com.github.wenslo.springbootdemo.dto.system.role.SimpleRole;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.github.wenslo.springbootdemo.condition.system;
 
-import com.github.wenslo.springbootdemo.condition.base.LongIdCondition;
+import com.github.wenslo.fluent.data.condition.LongIdCondition;
 
 /**
  * @author wenhailin

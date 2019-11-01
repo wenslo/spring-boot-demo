@@ -1,9 +1,9 @@
 package com.github.wenslo.springbootdemo.service.system.impl;
 
+import com.github.wenslo.fluent.data.service.impl.LongIdServiceImpl;
 import com.github.wenslo.springbootdemo.condition.system.UserCondition;
 import com.github.wenslo.springbootdemo.model.system.QUser;
 import com.github.wenslo.springbootdemo.model.system.User;
-import com.github.wenslo.springbootdemo.service.base.impl.LongIdServiceImpl;
 import com.github.wenslo.springbootdemo.service.system.UserService;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;

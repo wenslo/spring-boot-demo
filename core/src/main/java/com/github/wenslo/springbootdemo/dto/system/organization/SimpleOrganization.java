@@ -1,6 +1,6 @@
 package com.github.wenslo.springbootdemo.dto.system.organization;
 
-import com.github.wenslo.springbootdemo.dto.LongIdDTO;
+import com.github.wenslo.fluent.core.dto.LongIdDTO;
 
 /**
  * @author wenhailin

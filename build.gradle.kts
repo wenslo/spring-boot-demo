@@ -18,7 +18,6 @@ buildscript {
 //            mavenCentral()
 //            mavenLocal()
 //        }
-        mavenLocal()
         maven("http://127.0.0.1:8081/repository/maven-public/"){
             credentials(HttpHeaderCredentials::class.java) {
                 name = "wenslo-user"
@@ -30,6 +29,14 @@ buildscript {
         }
     }
 }
+
+//configurations{
+//    all{
+//        resolutionStrategy{
+//            cacheChangingModulesFor(0,"seconds")
+//        }
+//    }
+//}
 plugins {
     val springBootVersion = "2.1.0.RELEASE"
     java
@@ -52,7 +59,6 @@ val repos: List<String> by extra
 val querydslVersion = "4.2.1"
 allprojects {
     repositories {
-        mavenLocal()
         maven("http://127.0.0.1:8081/repository/maven-public/"){
             credentials(HttpHeaderCredentials::class.java) {
                 name = "admin"
@@ -130,36 +136,24 @@ subprojects {
 
 project(":core") {
     dependencies {
-        implementation("com.github.wenslo.fluent:fluent-security:1.0-SNAPSHOT@jar")
-
-        api("org.springframework.boot:spring-boot-starter-data-jpa")
-        api("org.springframework.boot:spring-boot-starter-security")
-        api("org.springframework.boot:spring-boot-starter-web")
-        api("com.github.springtestdbunit:spring-test-dbunit:1.3.0")
-        api("org.dbunit:dbunit:2.5.0")
-        api("com.google.code.gson:gson:2.8.5")
-        api("com.google.guava:guava:27.0-jre")
-        api("org.apache.commons:commons-lang3:3.8.1")
-        api("org.modelmapper:modelmapper:2.3.2")
-        api("com.h2database:h2")
-        api("com.querydsl:querydsl-jpa:4.2.1")
-        api("com.querydsl:querydsl-apt:4.2.1")
-        api("org.hibernate.validator:hibernate-validator:6.0.13.Final")
-        api("org.jxls:jxls:2.5.1")
-        api("org.jxls:jxls-poi:1.1.0")
-        api("org.jxls:jxls-jexcel:1.0.8")
-        api("mysql:mysql-connector-java:5.1.44")
-        testApi("mysql:mysql-connector-java:5.1.44")
-        testApi("org.springframework.boot:spring-boot-starter-test")
-        testApi("org.springframework.security:spring-security-test")
+        api("com.github.wenslo.fluent:fluent-security:1.0.0-RELEASE")
+        api("com.github.wenslo.fluent:fluent-data-jpa:1.0.0-RELEASE")
+//        api("com.h2database:h2")
+//        api("org.jxls:jxls:2.5.1")
+//        api("org.jxls:jxls-poi:1.1.0")
+//        api("org.jxls:jxls-jexcel:1.0.8")
+//        api("mysql:mysql-connector-java:5.1.44")
+//        testApi("mysql:mysql-connector-java:5.1.44")
+//        testApi("org.springframework.boot:spring-boot-starter-test")
+//        testApi("org.springframework.security:spring-security-test")
     }
 }
 
 project(":api") {
     dependencies {
         api(project(":core"))
-        api("com.fasterxml.jackson.datatype:jackson-datatype-hibernate5")
-        testApi("org.springframework.boot:spring-boot-starter-test")
-        testApi("org.springframework.security:spring-security-test")
+//        api("com.fasterxml.jackson.datatype:jackson-datatype-hibernate5")
+//        testApi("org.springframework.boot:spring-boot-starter-test")
+//        testApi("org.springframework.security:spring-security-test")
     }
 }

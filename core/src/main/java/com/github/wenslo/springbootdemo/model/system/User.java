@@ -1,8 +1,8 @@
 package com.github.wenslo.springbootdemo.model.system;
 
+import com.github.wenslo.fluent.data.model.LongIdEntity;
 import com.github.wenslo.springbootdemo.cache.PermissionCollector;
 import com.github.wenslo.springbootdemo.convert.StringListConverter;
-import com.github.wenslo.springbootdemo.model.base.LongIdEntity;
 import com.github.wenslo.springbootdemo.permission.SystemPermission;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;

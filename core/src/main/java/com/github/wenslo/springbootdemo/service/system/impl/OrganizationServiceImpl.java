@@ -1,9 +1,9 @@
 package com.github.wenslo.springbootdemo.service.system.impl;
 
+import com.github.wenslo.fluent.data.service.impl.LongIdServiceImpl;
 import com.github.wenslo.springbootdemo.condition.system.OrganizationCondition;
 import com.github.wenslo.springbootdemo.model.system.Organization;
 import com.github.wenslo.springbootdemo.model.system.QOrganization;
-import com.github.wenslo.springbootdemo.service.base.impl.LongIdServiceImpl;
 import com.github.wenslo.springbootdemo.service.system.OrganizationService;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;

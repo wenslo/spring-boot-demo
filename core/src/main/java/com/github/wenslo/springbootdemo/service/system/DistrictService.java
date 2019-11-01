@@ -2,10 +2,10 @@ package com.github.wenslo.springbootdemo.service.system;
 
 import java.util.List;
 
+import com.github.wenslo.fluent.data.service.LongIdService;
 import com.github.wenslo.springbootdemo.condition.system.DistrictCondition;
 import com.github.wenslo.springbootdemo.enums.common.DistrictType;
 import com.github.wenslo.springbootdemo.model.system.District;
-import com.github.wenslo.springbootdemo.service.base.LongIdService;
 
 /**
  * @author wenhailin

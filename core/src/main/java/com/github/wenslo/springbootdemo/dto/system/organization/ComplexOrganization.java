@@ -1,6 +1,6 @@
 package com.github.wenslo.springbootdemo.dto.system.organization;
 
-import com.github.wenslo.springbootdemo.dto.LongIdDTO;
+import com.github.wenslo.fluent.core.dto.LongIdDTO;
 import com.github.wenslo.springbootdemo.enums.common.EnableFlag;
 
 import java.time.LocalDate;

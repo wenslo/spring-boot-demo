@@ -1,7 +1,7 @@
 package com.github.wenslo.springbootdemo.reposiroty.system;
 
+import com.github.wenslo.fluent.data.repository.LongIdRepository;
 import com.github.wenslo.springbootdemo.model.system.District;
-import com.github.wenslo.springbootdemo.reposiroty.base.LongIdRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 

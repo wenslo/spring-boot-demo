@@ -2,8 +2,7 @@ package com.github.wenslo.springbootdemo.model.system;
 
 import javax.persistence.Entity;
 
-import com.github.wenslo.springbootdemo.model.base.LongIdEntity;
-
+import com.github.wenslo.fluent.data.model.LongIdEntity;
 import jdk.nashorn.internal.ir.annotations.Immutable;
 
 /**

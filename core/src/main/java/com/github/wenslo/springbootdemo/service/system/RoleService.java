@@ -1,8 +1,8 @@
 package com.github.wenslo.springbootdemo.service.system;
 
+import com.github.wenslo.fluent.data.service.LongIdService;
 import com.github.wenslo.springbootdemo.condition.system.RoleCondition;
 import com.github.wenslo.springbootdemo.model.system.Role;
-import com.github.wenslo.springbootdemo.service.base.LongIdService;
 
 import java.util.List;
 import java.util.Map;

@@ -1,12 +1,11 @@
 package com.github.wenslo.springbootdemo.service.system.impl;
 
+import com.github.wenslo.fluent.data.service.impl.LongIdServiceImpl;
 import com.github.wenslo.springbootdemo.condition.system.RoleCondition;
-import com.github.wenslo.springbootdemo.model.base.LongIdEntity;
 import com.github.wenslo.springbootdemo.model.system.QRole;
 import com.github.wenslo.springbootdemo.model.system.Role;
 import com.github.wenslo.springbootdemo.model.system.User;
 import com.github.wenslo.springbootdemo.reposiroty.system.UserRepository;
-import com.github.wenslo.springbootdemo.service.base.impl.LongIdServiceImpl;
 import com.github.wenslo.springbootdemo.service.system.RoleService;
 import com.google.common.collect.Maps;
 import com.querydsl.core.BooleanBuilder;

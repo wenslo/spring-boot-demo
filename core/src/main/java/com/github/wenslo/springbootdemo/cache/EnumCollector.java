@@ -1,6 +1,6 @@
 package com.github.wenslo.springbootdemo.cache;
 
-import com.github.wenslo.springbootdemo.domain.SimpleEnum;
+import com.github.wenslo.fluent.core.domain.SimpleEnum;
 import com.github.wenslo.springbootdemo.enums.BaseEnum;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;

@@ -2,7 +2,6 @@ package com.github.wenslo.springbootdemo.controller;
 
 import com.github.wenslo.springbootdemo.cache.EnumCollector;
 import com.github.wenslo.springbootdemo.cache.PermissionCollector;
-import com.github.wenslo.springbootdemo.domain.Response;
 import com.github.wenslo.springbootdemo.model.system.User;
 import com.github.wenslo.springbootdemo.permission.SystemPermission;
 import com.github.wenslo.springbootdemo.security.SecurityUtil;

@@ -1,8 +1,8 @@
 package com.github.wenslo.springbootdemo.service.system;
 
+import com.github.wenslo.fluent.data.service.LongIdService;
 import com.github.wenslo.springbootdemo.condition.system.OrganizationCondition;
 import com.github.wenslo.springbootdemo.model.system.Organization;
-import com.github.wenslo.springbootdemo.service.base.LongIdService;
 
 /**
  * @author wenhailin

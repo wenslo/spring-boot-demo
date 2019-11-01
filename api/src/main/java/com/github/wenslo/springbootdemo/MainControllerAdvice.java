@@ -1,6 +1,5 @@
 package com.github.wenslo.springbootdemo;
 
-import com.github.wenslo.springbootdemo.domain.Response;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.logging.log4j.util.Strings;
