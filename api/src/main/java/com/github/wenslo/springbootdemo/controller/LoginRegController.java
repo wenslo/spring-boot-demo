@@ -6,7 +6,6 @@ import com.github.wenslo.springbootdemo.cache.EnumCollector;
 import com.github.wenslo.springbootdemo.cache.PermissionCollector;
 import com.github.wenslo.springbootdemo.model.system.User;
 import com.github.wenslo.springbootdemo.permission.SystemPermission;
-import com.github.wenslo.springbootdemo.security.SecurityUtil;
 import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -37,9 +36,7 @@ public class LoginRegController {
     @RequestMapping("/me")
     public Response me() {
         Map<String, Object> map = Maps.newHashMap();
-        //FIXME
-//        User user = (User) SecurityUtil.getLoginUser();
-        User user = null;
+        User user = (User) SecurityUtil.getLoginUser();
         user.setPassword(null);
         map.put("user", user);
         List<String> userPermissions = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
