@@ -5,6 +5,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
+import com.github.wenslo.fluent.data.model.LongIdEntity;
 import com.github.wenslo.springbootdemo.model.system.Organization;
 
 /**

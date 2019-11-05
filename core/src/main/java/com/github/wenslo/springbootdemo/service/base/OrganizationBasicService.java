@@ -1,5 +1,6 @@
 package com.github.wenslo.springbootdemo.service.base;
 
+import com.github.wenslo.fluent.data.service.LongIdService;
 import com.github.wenslo.springbootdemo.condition.base.OrganizationBasicCondition;
 import com.github.wenslo.springbootdemo.model.base.OrganizationBasicEntity;
 

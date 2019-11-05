@@ -1,5 +1,7 @@
 package com.github.wenslo.springbootdemo.controller;
 
+import com.github.wenslo.fluent.core.domain.Response;
+import com.github.wenslo.fluent.security.SecurityUtil;
 import com.github.wenslo.springbootdemo.cache.EnumCollector;
 import com.github.wenslo.springbootdemo.cache.PermissionCollector;
 import com.github.wenslo.springbootdemo.model.system.User;
@@ -35,7 +37,9 @@ public class LoginRegController {
     @RequestMapping("/me")
     public Response me() {
         Map<String, Object> map = Maps.newHashMap();
-        User user = SecurityUtil.getLoginUser();
+        //FIXME
+//        User user = (User) SecurityUtil.getLoginUser();
+        User user = null;
         user.setPassword(null);
         map.put("user", user);
         List<String> userPermissions = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());

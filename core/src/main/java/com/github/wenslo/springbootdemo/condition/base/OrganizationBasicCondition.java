@@ -1,5 +1,8 @@
 package com.github.wenslo.springbootdemo.condition.base;
 
+
+import com.github.wenslo.fluent.core.condition.PageCondition;
+
 /**
  * @author wenhailin
  * @version 0.0.1

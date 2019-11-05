@@ -1,7 +1,8 @@
 package com.github.wenslo.springbootdemo.service.base.impl;
 
+import com.github.wenslo.fluent.data.querydsl.CustomEntityPathBase;
+import com.github.wenslo.fluent.data.service.impl.LongIdServiceImpl;
 import com.github.wenslo.springbootdemo.condition.base.OrganizationBasicCondition;
-import com.github.wenslo.springbootdemo.domain.querydsl.CustomEntityPathBase;
 import com.github.wenslo.springbootdemo.model.base.OrganizationBasicEntity;
 import com.github.wenslo.springbootdemo.reposiroty.base.OrganizationBasicRepository;
 import com.github.wenslo.springbootdemo.service.base.OrganizationBasicService;
@@ -11,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -31,9 +31,9 @@ public abstract class OrganizationBasicServiceImpl<T extends OrganizationBasicEn
         List<Predicate> conditionBuilder = super.conditionBuild(condition);
         CustomEntityPathBase<T> pathBase = super.getEntityPath();
         Long organizationId = condition.getOrganizationId();
-        if (Objects.nonNull(organizationId)) {
-            conditionBuilder.add(pathBase.organization.id.eq(organizationId));
-        }
+//        if (Objects.nonNull(organizationId)) {
+//            conditionBuilder.add(pathBase.organization.id.eq(organizationId));
+//        }
         return conditionBuilder;
     }
 

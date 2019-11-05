@@ -1,6 +1,6 @@
 package com.github.wenslo.springbootdemo.controller;
 
-import com.github.wenslo.springbootdemo.security.SecurityUtil;
+import com.github.wenslo.fluent.security.SecurityUtil;
 import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;

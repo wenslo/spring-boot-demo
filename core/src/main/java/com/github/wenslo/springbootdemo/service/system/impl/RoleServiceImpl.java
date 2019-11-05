@@ -1,5 +1,6 @@
 package com.github.wenslo.springbootdemo.service.system.impl;
 
+import com.github.wenslo.fluent.data.model.LongIdEntity;
 import com.github.wenslo.fluent.data.service.impl.LongIdServiceImpl;
 import com.github.wenslo.springbootdemo.condition.system.RoleCondition;
 import com.github.wenslo.springbootdemo.model.system.QRole;

@@ -1,5 +1,6 @@
 package com.github.wenslo.springbootdemo.controller.system;
 
+import com.github.wenslo.fluent.core.domain.Response;
 import com.github.wenslo.springbootdemo.cache.PermissionCollector;
 import com.github.wenslo.springbootdemo.condition.system.RoleCondition;
 import com.github.wenslo.springbootdemo.controller.BaseController;

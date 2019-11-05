@@ -1,7 +1,7 @@
 package com.github.wenslo.springbootdemo.config;
 
-import com.github.wenslo.springbootdemo.security.filter.CustomAuthenticationFilter;
-import com.github.wenslo.springbootdemo.security.provider.*;
+import com.github.wenslo.fluent.security.filter.CustomAuthenticationFilter;
+import com.github.wenslo.fluent.security.provider.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;

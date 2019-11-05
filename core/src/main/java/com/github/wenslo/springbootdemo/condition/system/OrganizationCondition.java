@@ -1,5 +1,7 @@
 package com.github.wenslo.springbootdemo.condition.system;
 
+import com.github.wenslo.fluent.core.condition.PageCondition;
+
 import java.io.Serializable;
 
 /**

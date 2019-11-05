@@ -47,7 +47,6 @@ plugins {
     id("org.springframework.boot") version springBootVersion apply false
     id("org.jetbrains.kotlin.kapt") version "1.3.31"
     id("org.jetbrains.kotlin.jvm") version "1.3.31"
-    `maven-publish`
 }
 
 configure<JavaPluginConvention> {
@@ -97,63 +96,30 @@ subprojects {
             from(sourceSets.main.get().allJava)
         }
 
-        withType(PublishToMavenRepository::class) {
-            onlyIf {
-                (repository == publishing.repositories["hhkj"] &&
-                        publication == publishing.publications["binary"])
-//                    ||
-//                    (repository == publishing.repositories["internal"] &&
-//                            publication == publishing.publications["binaryAndSources"])
-            }
-        }
-
-        withType(PublishToMavenLocal::class) {
-            onlyIf {
-                publication == publishing.publications["binaryAndSources"]
-            }
-        }
-    }
-
-    publishing {
-        publications {
-            create<MavenPublication>("binary") {
-                version = "${project.version}"
-                from(components["java"])
-            }
-            create<MavenPublication>("binaryAndSources") {
-                from(components["java"])
-                artifact(tasks["sourcesJar"])
-            }
-        }
-        repositories {
-            //            maven {
-//                name = "self"
-//                url = uri("$buildDir/repos/internal")
-//            }
-        }
     }
 }
 
 project(":core") {
     dependencies {
+        kapt("com.querydsl:querydsl-apt:${querydslVersion}:jpa")
         api("com.github.wenslo.fluent:fluent-security:1.0.0-RELEASE")
         api("com.github.wenslo.fluent:fluent-data-jpa:1.0.0-RELEASE")
-//        api("com.h2database:h2")
-//        api("org.jxls:jxls:2.5.1")
-//        api("org.jxls:jxls-poi:1.1.0")
-//        api("org.jxls:jxls-jexcel:1.0.8")
-//        api("mysql:mysql-connector-java:5.1.44")
-//        testApi("mysql:mysql-connector-java:5.1.44")
-//        testApi("org.springframework.boot:spring-boot-starter-test")
-//        testApi("org.springframework.security:spring-security-test")
+        api("com.h2database:h2")
+        api("org.jxls:jxls:2.5.1")
+        api("org.jxls:jxls-poi:1.1.0")
+        api("org.jxls:jxls-jexcel:1.0.8")
+        api("mysql:mysql-connector-java:5.1.44")
+        testApi("mysql:mysql-connector-java:5.1.44")
+        testApi("org.springframework.boot:spring-boot-starter-test")
+        testApi("org.springframework.security:spring-security-test")
     }
 }
 
 project(":api") {
     dependencies {
         api(project(":core"))
-//        api("com.fasterxml.jackson.datatype:jackson-datatype-hibernate5")
-//        testApi("org.springframework.boot:spring-boot-starter-test")
-//        testApi("org.springframework.security:spring-security-test")
+        api("com.fasterxml.jackson.datatype:jackson-datatype-hibernate5")
+        testApi("org.springframework.boot:spring-boot-starter-test")
+        testApi("org.springframework.security:spring-security-test")
     }
 }

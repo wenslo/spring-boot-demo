@@ -1,5 +1,6 @@
 package com.github.wenslo.springbootdemo.reposiroty.base;
 
+import com.github.wenslo.fluent.data.repository.LongIdRepository;
 import com.github.wenslo.springbootdemo.model.base.OrganizationBasicEntity;
 import org.springframework.data.repository.NoRepositoryBean;
 
