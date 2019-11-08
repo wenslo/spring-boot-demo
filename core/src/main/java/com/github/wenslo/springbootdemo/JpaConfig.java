@@ -15,13 +15,14 @@ import org.springframework.scheduling.annotation.EnableAsync;
  * @createTime 2018年12月06日 上午10:54
  * @description
  */
-@EntityScan({"com.github.wenslo.springbootdemo.model"})
+@EntityScan({"com.github.wenslo.springbootdemo.model", "com.github.wenslo.fluent.model"})
 @Configuration
 @EnableAutoConfiguration
 @EnableJpaAuditing
 @EnableAsync
-@EnableJpaRepositories(basePackages = "com.github.wenslo.springbootdemo.reposiroty")
-@ComponentScan("com.github.wenslo.springbootdemo")
+@EnableJpaRepositories(basePackages = {"com.github.wenslo.springbootdemo.reposiroty", "com.github.wenslo.fluent.data.repository"})
+@ComponentScan(value = {"com.github.wenslo.springbootdemo", "com.github.wenslo.fluent"})
 @Import({CommonConfig.class})
 public class JpaConfig {
+
 }
