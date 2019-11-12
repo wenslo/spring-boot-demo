@@ -2,7 +2,7 @@ import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 buildscript {
     repositories {
-//        val repos by extra {
+        //        val repos by extra {
 //            listOf(
 //                    "http://maven.aliyun.com/nexus/content/groups/public",
 //                    "https://jcenter.bintray.com/",
@@ -18,7 +18,7 @@ buildscript {
 //            mavenCentral()
 //            mavenLocal()
 //        }
-        maven("http://127.0.0.1:8081/repository/maven-public/"){
+        maven("http://127.0.0.1:8081/repository/maven-public/") {
             credentials(HttpHeaderCredentials::class.java) {
                 name = "wenslo-user"
                 value = "123456"
@@ -58,7 +58,7 @@ val repos: List<String> by extra
 val querydslVersion = "4.2.1"
 allprojects {
     repositories {
-        maven("http://127.0.0.1:8081/repository/maven-public/"){
+        maven("http://127.0.0.1:8081/repository/maven-public/") {
             credentials(HttpHeaderCredentials::class.java) {
                 name = "admin"
                 value = "admin"
@@ -102,8 +102,8 @@ subprojects {
 project(":core") {
     dependencies {
         kapt("com.querydsl:querydsl-apt:${querydslVersion}:jpa")
-        api("com.github.wenslo.fluent:fluent-security:1.0.2-RELEASE")
-        api("com.github.wenslo.fluent:fluent-data-jpa:1.0.2-RELEASE")
+        api("com.github.wenslo.fluent:fluent-security:1.0.4-RELEASE")
+        api("com.github.wenslo.fluent:fluent-data-jpa:1.0.4-RELEASE")
         api("com.h2database:h2")
         api("org.jxls:jxls:2.5.1")
         api("org.jxls:jxls-poi:1.1.0")
@@ -111,7 +111,7 @@ project(":core") {
         api("mysql:mysql-connector-java:5.1.44")
         testApi("mysql:mysql-connector-java:5.1.44")
         testApi("org.springframework.boot:spring-boot-starter-test")
-        testApi("org.springframework.security:spring-security-test")
+//        testApi("org.springframework.security:spring-security-test")
     }
 }
 
@@ -120,6 +120,6 @@ project(":api") {
         api(project(":core"))
         api("com.fasterxml.jackson.datatype:jackson-datatype-hibernate5")
         testApi("org.springframework.boot:spring-boot-starter-test")
-        testApi("org.springframework.security:spring-security-test")
+//        testApi("org.springframework.security:spring-security-test")
     }
 }
