@@ -1,6 +1,8 @@
 package com.github.wenslo.springbootdemo.model.system;
 
 import java.io.Serializable;
+import java.util.List;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * @author wenhailin
@@ -9,47 +11,51 @@ import java.io.Serializable;
  * @description 权限DTO
  */
 public class Permission implements Serializable {
+
     /** 权限实际值 **/
-    private String value;
+    private String action;
     /** 权限描述 **/
-    private String label;
-    /** 所属权限组 **/
-    private String group;
+    private String describe;
+    private List<Permission> actions;
 
-    public Permission() {}
-
-    public Permission(String value, String label, String group) {
-        this.value = value;
-        this.label = label;
-        this.group = group;
+    public Permission() {
     }
 
-    public String getValue() {
-        return value;
+    public Permission(String action, String describe) {
+        this.action = action;
+        this.describe = describe;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public String getAction() {
+        return action;
     }
 
-    public String getLabel() {
-        return label;
+    public void setAction(String action) {
+        this.action = action;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
+    public String getDescribe() {
+        return describe;
     }
 
-    public String getGroup() {
-        return group;
+    public void setDescribe(String describe) {
+        this.describe = describe;
     }
 
-    public void setGroup(String group) {
-        this.group = group;
+    public List<Permission> getActions() {
+        return actions;
+    }
+
+    public void setActions(List<Permission> actions) {
+        this.actions = actions;
     }
 
     @Override
     public String toString() {
-        return "Permission{" + "value='" + value + '\'' + ", label='" + label + '\'' + ", group='" + group + '\'' + '}';
+        return new ToStringBuilder(this)
+            .append("action", action)
+            .append("describe", describe)
+            .append("actions", actions)
+            .toString();
     }
 }

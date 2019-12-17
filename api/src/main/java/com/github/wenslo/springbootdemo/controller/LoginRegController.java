@@ -5,17 +5,15 @@ import com.github.wenslo.fluent.security.SecurityUtil;
 import com.github.wenslo.springbootdemo.cache.EnumCollector;
 import com.github.wenslo.springbootdemo.cache.PermissionCollector;
 import com.github.wenslo.springbootdemo.model.system.User;
-import com.github.wenslo.springbootdemo.permission.SystemPermission;
 import com.google.common.collect.Maps;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author wenhailin
@@ -25,6 +23,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 public class LoginRegController {
+
     @Autowired
     private EnumCollector enumCollector;
 
