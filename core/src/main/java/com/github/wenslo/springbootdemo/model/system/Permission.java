@@ -18,12 +18,26 @@ public class Permission implements Serializable {
     private String describe;
     private List<Permission> actions;
 
+    private String parentAction;
+    private String parentDescribe;
+
     public Permission() {
     }
 
     public Permission(String action, String describe) {
         this.action = action;
         this.describe = describe;
+    }
+
+    public Permission builderParent(String parentAction, String parentDescribe) {
+        this.parentAction = parentAction;
+        this.parentDescribe = parentDescribe;
+        return this;
+    }
+
+    public Permission buildActions(List<Permission> actions) {
+        this.actions = actions;
+        return this;
     }
 
     public String getAction() {
@@ -50,12 +64,30 @@ public class Permission implements Serializable {
         this.actions = actions;
     }
 
+    public String getParentAction() {
+        return parentAction;
+    }
+
+    public void setParentAction(String parentAction) {
+        this.parentAction = parentAction;
+    }
+
+    public String getParentDescribe() {
+        return parentDescribe;
+    }
+
+    public void setParentDescribe(String parentDescribe) {
+        this.parentDescribe = parentDescribe;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
             .append("action", action)
             .append("describe", describe)
             .append("actions", actions)
+            .append("parentAction", parentAction)
+            .append("parentDescribe", parentDescribe)
             .toString();
     }
 }

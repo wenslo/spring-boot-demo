@@ -3,6 +3,7 @@ package com.github.wenslo.springbootdemo.model.system;
 import com.github.wenslo.fluent.data.model.LongIdEntity;
 import com.github.wenslo.springbootdemo.cache.PermissionCollector;
 import com.github.wenslo.springbootdemo.convert.StringListConverter;
+import com.github.wenslo.springbootdemo.permissions.AdminPermission;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import java.util.Collection;
@@ -23,6 +24,7 @@ import javax.persistence.NamedEntityGraph;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -187,7 +189,8 @@ public class User extends LongIdEntity implements UserDetails {
             roles.forEach(it -> {
                 List<String> rolePermissions = it.getPermission();
                 if (!rolePermissions.isEmpty()) {
-                    boolean match = rolePermissions.stream().anyMatch(flag -> Objects.equals(flag, SystemPermission.ADMINISTRATOR));
+                    boolean match = rolePermissions.stream().anyMatch(
+                        authority -> StringUtils.contains(authority, AdminPermission.ADMIN.getAction()));
                     if (match) {
                         authorities.addAll(PermissionCollector.permissionSet);
                     }

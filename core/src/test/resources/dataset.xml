@@ -2,40 +2,40 @@
 <dataset>
     <!-- user -->
     <user id="-1" username="user1" password="1234"
-          created_at="2018-11-25 07:15:07"
-          updated_at="2018-11-25 07:15:16" account_non_expired="0" account_non_locked="0" credentials_non_expired="0"
-          enabled="1" nickname="小白"/>
+        created_at="2018-11-25 07:15:07"
+        updated_at="2018-11-25 07:15:16" account_non_expired="0" account_non_locked="0" credentials_non_expired="0"
+        enabled="1" nickname="小白" permission="super_admin"/>
 
     <user id="-2" username="user2" password="1234" created_at="2018-11-25 07:15:07"
-          updated_at="2018-11-25 07:15:16" account_non_expired="0" account_non_locked="0" credentials_non_expired="0"
-          enabled="1" nickname="小黑"/>
+        updated_at="2018-11-25 07:15:16" account_non_expired="0" account_non_locked="0" credentials_non_expired="0"
+        enabled="1" nickname="小黑"/>
 
     <!-- role -->
     <role id="-1" created_at="2018-11-25 07:15:07" updated_at="2018-11-25 07:15:16" name="user manager"
-          permission="ADMINISTRATOR"
-          description="这就是个测试角色" enabled="1"/>
+        permission="super_admin"
+        description="这就是个测试角色" enabled="1"/>
     <!-- user_role -->
     <user_role user_id="-1" role_id="-1"/>
     <!-- organization -->
     <organization id="-1" created_at="2018-12-31 16:47:20" updated_at="2018-12-31 16:47:17" full_name="测试总部集团"
-                  name="总部集团" district_code="110105" address="北京市海淀区西直门" contract_name="西门吹雪"
-                  contract_phone="0356110" delete_flag="NORMAL"/>
+        name="总部集团" district_code="110105" address="北京市海淀区西直门" contract_name="西门吹雪"
+        contract_phone="0356110" delete_flag="NORMAL"/>
     <organization id="-2" created_at="2018-12-31 16:47:20" updated_at="2018-12-31 16:47:17" full_name="测试总部集团2"
-                  name="总部集团2" district_code="110105" address="北京市海淀区西直门" contract_name="西门吹雪"
-                  contract_phone="0356110" delete_flag="DELETED"/>
+        name="总部集团2" district_code="110105" address="北京市海淀区西直门" contract_name="西门吹雪"
+        contract_phone="0356110" delete_flag="DELETED"/>
     <!-- organization_user -->
     <user_organization user_id="-1" organization_id="-1"/>
     <!-- district -->
     <district id="-1" created_at="2018-12-31 17:13:53" updated_at="2018-12-31 17:13:53" code="11" name="北京市"
-              zip_code="100000"/>
+        zip_code="100000"/>
     <district id="-2" created_at="2018-12-31 17:13:53" updated_at="2018-12-31 17:13:53" code="1101" parent_code="11"
-              name="市辖区" zip_code="110000"/>
+        name="市辖区" zip_code="110000"/>
     <district id="-3" created_at="2018-12-31 17:13:53" updated_at="2018-12-31 17:13:53" code="110105" parent_code="1101"
-              name="朝阳区" zip_code="110105"/>
+        name="朝阳区" zip_code="110105"/>
 
     <department id="-1" created_at="2018-12-31 17:13:53" updated_at="2018-12-31 17:13:53" name="产品技术部" sorted="1"
-                comment="包含产品，技术" organization_id="-1"/>
+        comment="包含产品，技术" organization_id="-1"/>
     <department id="-2" created_at="2019-01-08 17:18:59" updated_at="2019-01-08 17:19:01" name="技术部" sorted="1"
-                comment="技术部" organization_id="-1" parent_id="-1"/>
+        comment="技术部" organization_id="-1" parent_id="-1"/>
 
 </dataset>

@@ -9,6 +9,8 @@ import com.github.wenslo.springbootdemo.model.system.Role;
 import com.github.wenslo.springbootdemo.service.system.RoleService;
 import com.github.wenslo.springbootdemo.util.BeanUtil;
 import com.google.common.collect.Lists;
+import java.util.Map;
+import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +19,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
-import java.util.Objects;
 
 /**
  * @author wenhailin
@@ -30,6 +29,7 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/role")
 public class RoleController extends BaseController {
+
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private RoleService roleService;
@@ -80,6 +80,6 @@ public class RoleController extends BaseController {
 
     @RequestMapping("/allPermission")
     public Response allPermission() {
-        return Response.success(PermissionCollector.permissionMap);
+        return Response.success(PermissionCollector.permissionList);
     }
 }

@@ -5,11 +5,12 @@ import com.github.wenslo.fluent.security.SecurityUtil;
 import com.github.wenslo.springbootdemo.cache.EnumCollector;
 import com.github.wenslo.springbootdemo.cache.PermissionCollector;
 import com.github.wenslo.springbootdemo.model.system.User;
+import com.github.wenslo.springbootdemo.permissions.AdminPermission;
 import com.google.common.collect.Maps;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +40,7 @@ public class LoginRegController {
         user.setPassword(null);
         map.put("user", user);
         List<String> userPermissions = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-        boolean isAdministrator = userPermissions.stream().anyMatch(it -> Objects.equals(it, SystemPermission.ADMINISTRATOR));
+        boolean isAdministrator = userPermissions.stream().anyMatch(it -> StringUtils.contains(it, AdminPermission.ADMIN.getAction()));
         if (isAdministrator) {
             map.put("permission", PermissionCollector.permissionSet);
         } else {

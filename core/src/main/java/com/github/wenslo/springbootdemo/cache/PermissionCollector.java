@@ -1,24 +1,19 @@
 package com.github.wenslo.springbootdemo.cache;
 
-import com.github.wenslo.fluent.core.domain.SimpleEnum;
-import com.github.wenslo.springbootdemo.enums.BaseEnum;
+import static com.github.wenslo.springbootdemo.permissions.Permission.SEPARATOR;
+
 import com.github.wenslo.springbootdemo.model.system.Permission;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import com.google.common.eventbus.EventBus;
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.apache.commons.lang3.StringUtils;
 import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -32,49 +27,41 @@ import org.springframework.stereotype.Component;
 public class PermissionCollector implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(PermissionCollector.class);
-    public static final Map<String, List<Permission>> permissionMap = Maps.newHashMap();
+    public static final List<Permission> permissionList = Lists.newArrayList();
     public static final Set<String> permissionSet = Sets.newHashSet();
-    @Autowired
-    private EventBus eventBus;
 
-
-    private void putPermissionIfPresent(Class<?> clazz) {
-        Field[] fields = clazz.getDeclaredFields();
-        Map<String, List<Permission>> map = Arrays.stream(fields)
-            .filter(s -> Objects.nonNull(s.getAnnotation(com.github.wenslo.springbootdemo.annotation.permission.Permission.class)))
-            .map(s -> {
-                com.github.wenslo.springbootdemo.annotation.permission.Permission annotation = s
-                    .getAnnotation(com.github.wenslo.springbootdemo.annotation.permission.Permission.class);
-                try {
-                    String name = (String) s.get(clazz);
-                    logger.trace("get name is {}", name);
-                    permissionSet.add(name);
-                    return new Permission(annotation.value(), name, annotation.group());
-                } catch (IllegalAccessException e) {
-                    logger.error("convert permissionMap label is error", e);
-                    return null;
-                }
-            }).collect(Collectors.toList()).stream().collect(Collectors.groupingBy(Permission::getGroup));
-        permissionMap.putAll(map);
-    }
-
+    @SuppressWarnings("unchecked")
     @Override
     public void run(String... args) throws Exception {
-        logger.debug("------------------permission collect preparing-------------------------");
+        logger.debug("-------------------------------------------permission collect preparing");
         Reflections reflections = new Reflections("com.github.wenslo.springbootdemo.permissions");
         Set<Class<? extends com.github.wenslo.springbootdemo.permissions.Permission>> types = reflections
             .getSubTypesOf(com.github.wenslo.springbootdemo.permissions.Permission.class);
         for (Class<? extends com.github.wenslo.springbootdemo.permissions.Permission> it : types) {
             Method valuesMethod = it.getMethod("values");
-            Method labelMethod = it.getMethod("getDescribe");
+            Method describeMethod = it.getMethod("getDescribe");
+            Method groupMethod = it.getMethod("getGroup");
+            Method groupDescribeMethod = it.getMethod("getGroupDescribe");
 
-            Enum<? extends BaseEnum>[] result = (Enum<? extends BaseEnum>[]) valuesMethod.invoke(it, new Object[]{});
-            List<SimpleEnum> list = Lists.newArrayList();
-            for (Enum<? extends BaseEnum> anEnum : result) {
-                list.add(new SimpleEnum(anEnum.ordinal(), anEnum.name(), (String) labelMethod.invoke(anEnum, new Object[]{})));
+            Enum<? extends com.github.wenslo.springbootdemo.permissions.Permission>[] result = (Enum<? extends com.github.wenslo.springbootdemo.permissions.Permission>[]) valuesMethod
+                .invoke(it, new Object[]{});
+            List<Permission> list = Lists.newArrayList();
+            for (Enum<? extends com.github.wenslo.springbootdemo.permissions.Permission> anEnum : result) {
+                String name = anEnum.name();
+                String describe = (String) describeMethod.invoke(anEnum, new Object[]{});
+                String groupName = (String) groupMethod.invoke(anEnum, new Object[]{});
+                String groupDescribe = (String) groupDescribeMethod.invoke(anEnum, new Object[]{});
+                list.add(new Permission(name, describe).builderParent(groupName, groupDescribe));
+                permissionSet.add(StringUtils.join(groupName, SEPARATOR, name.toLowerCase()));
             }
-            enums.put(it.getSimpleName(), list);
-            logger.trace("enums is {}", enums);
+            Map<String, List<Permission>> permissionCollect = list.stream().collect(Collectors.groupingBy(Permission::getParentAction));
+            permissionCollect.forEach((k, v) -> {
+                permissionList.add(new Permission(k, v.stream().findAny().get().getParentDescribe()).buildActions(v));
+            });
+            logger.debug("permissionSet  is {}", permissionSet);
+            logger.debug("permissionsCollect  is {}", permissionList);
+
         }
+        logger.debug("-------------------------------------------permission collect is end");
     }
 }

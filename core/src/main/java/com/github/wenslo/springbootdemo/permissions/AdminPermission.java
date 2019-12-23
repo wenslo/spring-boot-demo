@@ -1,17 +1,11 @@
 package com.github.wenslo.springbootdemo.permissions;
 
-/**
- * 用户权限
- */
-public enum UserPermission implements Permission {
-    ADD("add", "正常"),
-    UPDATE("update", "修改"),
-    DELETE("delete", "删除"),
-    PASSWORD_RESET("password_reset", "密码重置");
+public enum AdminPermission implements Permission {
+    ADMIN("admin", "超级管理员");
     private String action;
     private String describe;
 
-    UserPermission(String action, String describe) {
+    AdminPermission(String action, String describe) {
         this.action = action;
         this.describe = describe;
     }
@@ -29,11 +23,11 @@ public enum UserPermission implements Permission {
 
     @Override
     public String getGroup() {
-        return "user";
+        return "super";
     }
 
     @Override
     public String getGroupDescribe() {
-        return "用户权限";
+        return "超级权限";
     }
 }
