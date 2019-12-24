@@ -58,8 +58,8 @@ public class PermissionCollector implements CommandLineRunner {
             permissionCollect.forEach((k, v) -> {
                 permissionList.add(new Permission(k, v.stream().findAny().get().getParentDescribe()).buildActions(v));
             });
-            logger.debug("permissionSet  is {}", permissionSet);
-            logger.debug("permissionsCollect  is {}", permissionList);
+            logger.trace("permissionSet  is {}", permissionSet);
+            logger.trace("permissionsCollect  is {}", permissionList);
 
         }
         logger.debug("-------------------------------------------permission collect is end");

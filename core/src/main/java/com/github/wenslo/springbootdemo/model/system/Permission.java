@@ -10,7 +10,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  * @createTime 2018年12月10日 上午10:36
  * @description 权限DTO
  */
-public class Permission implements Serializable {
+public class Permission implements Serializable, Cloneable {
 
     /** 权限实际值 **/
     private String action;
@@ -78,6 +78,17 @@ public class Permission implements Serializable {
 
     public void setParentDescribe(String parentDescribe) {
         this.parentDescribe = parentDescribe;
+    }
+
+    @Override
+    public Permission clone() {
+        Permission permission = null;
+        try {
+            permission = (Permission) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return permission;
     }
 
     @Override
