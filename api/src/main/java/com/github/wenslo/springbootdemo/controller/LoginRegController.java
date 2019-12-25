@@ -80,6 +80,7 @@ public class LoginRegController {
                         subPermission.add(containsPermission);
                     }
                 });
+                result.add(permission);
             }
         });
         return result;

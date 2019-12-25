@@ -3,12 +3,11 @@ package com.github.wenslo.springbootdemo.reposiroty.administration;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.wenslo.springbootdemo.DBTestCase;
 import com.github.wenslo.springbootdemo.model.administration.Department;
+import java.util.List;
 import org.assertj.core.util.Lists;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
 
 /**
  * @author wenhailin
