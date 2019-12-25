@@ -12,7 +12,9 @@ import com.github.wenslo.springbootdemo.permissions.AdminPermission;
 import com.google.common.collect.Maps;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -63,10 +65,22 @@ public class LoginRegController {
         Map<String, List<String>> splitByUnderline = userPermissions.stream().collect(Collectors.groupingBy(it -> it.split(SEPARATOR)[0]));
         logger.info("collect is {}", splitByUnderline);
         PermissionCollector.permissionList.forEach(p -> {
-            List<String> permission = splitByUnderline.get(p.getAction());
-        });
-        splitByUnderline.forEach((k, v) -> {
-
+            List<String> actions = splitByUnderline.get(p.getAction());
+            if (CollectionUtils.isNotEmpty(actions)) {
+                Permission permission = p.clone();
+                List<Permission> elderlyPermission = p.getActions();
+                List<Permission> subPermission = Lists.newArrayList();
+                permission.setActions(subPermission);
+                actions.forEach(action -> {
+                    Permission containsPermission = elderlyPermission.stream().filter(it -> StringUtils.isNotBlank(it.getParentAction()))
+                        .filter(it -> Objects
+                            .equals(StringUtils.join(it.getParentAction().toLowerCase(), SEPARATOR + it.getAction().toLowerCase()), action))
+                        .findFirst().orElse(null);
+                    if (Objects.nonNull(containsPermission)) {
+                        subPermission.add(containsPermission);
+                    }
+                });
+            }
         });
         return result;
     }
