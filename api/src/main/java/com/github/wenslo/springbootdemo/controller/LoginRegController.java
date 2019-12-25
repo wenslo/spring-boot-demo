@@ -1,5 +1,7 @@
 package com.github.wenslo.springbootdemo.controller;
 
+import static com.github.wenslo.springbootdemo.permissions.Permission.SEPARATOR;
+
 import com.github.wenslo.fluent.core.domain.Response;
 import com.github.wenslo.fluent.security.SecurityUtil;
 import com.github.wenslo.springbootdemo.cache.EnumCollector;
@@ -10,7 +12,6 @@ import com.github.wenslo.springbootdemo.permissions.AdminPermission;
 import com.google.common.collect.Maps;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
@@ -47,32 +48,26 @@ public class LoginRegController {
         map.put("user", user);
         List<String> userPermissions = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
         boolean isAdministrator = userPermissions.stream().anyMatch(it -> StringUtils.contains(it, AdminPermission.ADMIN.getAction()));
-        if (isAdministrator) {
-            map.put("permission", PermissionCollector.permissionList);
-        } else {
-            List<Permission> result = permissionConvert(userPermissions);
-            //O(n+m) implement
-            int point = 0;
-            for (int i = 0; i < userPermissions.size(); i++) {
-                String permission = userPermissions.get(i);
-                String groupAction = permission.split("_")[0];
-                for (int j = 0; j < PermissionCollector.permissionList.size(); j++) {
-                    Permission currentPermission = PermissionCollector.permissionList.get(i);
-                    if (Objects.equals(groupAction, currentPermission.getAction())) {
-                        Permission clone = currentPermission.clone();
-                        result.add(clone);
-
-                    }
-                }
-            }
-            map.put("permission", result);
-        }
+//        if (isAdministrator) {
+//            map.put("permission", PermissionCollector.permissionList);
+//        } else {
+        List<Permission> result = permissionConvert(userPermissions);
+        map.put("permission", result);
+//        }
         map.put("enums", enumCollector.enums);
         return Response.success(map);
     }
 
     private List<Permission> permissionConvert(List<String> userPermissions) {
         List<Permission> result = Lists.newArrayList();
+        Map<String, List<String>> splitByUnderline = userPermissions.stream().collect(Collectors.groupingBy(it -> it.split(SEPARATOR)[0]));
+        logger.info("collect is {}", splitByUnderline);
+        PermissionCollector.permissionList.forEach(p -> {
+            List<String> permission = splitByUnderline.get(p.getAction());
+        });
+        splitByUnderline.forEach((k, v) -> {
+
+        });
         return result;
     }
 
