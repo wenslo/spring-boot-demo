@@ -50,12 +50,12 @@ public class LoginRegController {
         map.put("user", user);
         List<String> userPermissions = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
         boolean isAdministrator = userPermissions.stream().anyMatch(it -> StringUtils.contains(it, AdminPermission.ADMIN.getAction()));
-//        if (isAdministrator) {
-//            map.put("permission", PermissionCollector.permissionList);
-//        } else {
-        List<Permission> result = permissionConvert(userPermissions);
-        map.put("permission", result);
-//        }
+        if (isAdministrator) {
+            map.put("permission", PermissionCollector.permissionList);
+        } else {
+            List<Permission> result = permissionConvert(userPermissions);
+            map.put("permission", result);
+        }
         map.put("enums", enumCollector.enums);
         return Response.success(map);
     }
