@@ -1,5 +1,7 @@
 package com.github.wenslo.springbootdemo.permissions;
 
+import com.github.wenslo.fluent.security.annotation.Permission;
+
 public enum AdminPermission implements Permission {
     ADMIN("admin", "超级管理员");
     private String action;

@@ -1,6 +1,6 @@
 package com.github.wenslo.springbootdemo.controller;
 
-import static com.github.wenslo.springbootdemo.permissions.Permission.SEPARATOR;
+import static com.github.wenslo.fluent.security.annotation.Permission.SEPARATOR;
 
 import com.github.wenslo.fluent.core.domain.Response;
 import com.github.wenslo.fluent.security.SecurityUtil;

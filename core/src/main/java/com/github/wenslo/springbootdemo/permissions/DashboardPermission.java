@@ -1,5 +1,7 @@
 package com.github.wenslo.springbootdemo.permissions;
 
+import com.github.wenslo.fluent.security.annotation.Permission;
+
 /**
  * 仪表盘全新啊
  */

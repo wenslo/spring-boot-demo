@@ -1,6 +1,6 @@
 package com.github.wenslo.springbootdemo.cache;
 
-import static com.github.wenslo.springbootdemo.permissions.Permission.SEPARATOR;
+import static com.github.wenslo.fluent.security.annotation.Permission.SEPARATOR;
 
 import com.github.wenslo.springbootdemo.model.system.Permission;
 import com.google.common.collect.Lists;
@@ -35,18 +35,18 @@ public class PermissionCollector implements CommandLineRunner {
     public void run(String... args) throws Exception {
         logger.debug("-------------------------------------------permission collect preparing");
         Reflections reflections = new Reflections("com.github.wenslo.springbootdemo.permissions");
-        Set<Class<? extends com.github.wenslo.springbootdemo.permissions.Permission>> types = reflections
-            .getSubTypesOf(com.github.wenslo.springbootdemo.permissions.Permission.class);
-        for (Class<? extends com.github.wenslo.springbootdemo.permissions.Permission> it : types) {
+        Set<Class<? extends com.github.wenslo.fluent.security.annotation.Permission>> types = reflections
+            .getSubTypesOf(com.github.wenslo.fluent.security.annotation.Permission.class);
+        for (Class<? extends com.github.wenslo.fluent.security.annotation.Permission> it : types) {
             Method valuesMethod = it.getMethod("values");
             Method describeMethod = it.getMethod("getDescribe");
             Method groupMethod = it.getMethod("getGroup");
             Method groupDescribeMethod = it.getMethod("getGroupDescribe");
 
-            Enum<? extends com.github.wenslo.springbootdemo.permissions.Permission>[] result = (Enum<? extends com.github.wenslo.springbootdemo.permissions.Permission>[]) valuesMethod
+            Enum<? extends com.github.wenslo.fluent.security.annotation.Permission>[] result = (Enum<? extends com.github.wenslo.fluent.security.annotation.Permission>[]) valuesMethod
                 .invoke(it, new Object[]{});
             List<Permission> list = Lists.newArrayList();
-            for (Enum<? extends com.github.wenslo.springbootdemo.permissions.Permission> anEnum : result) {
+            for (Enum<? extends com.github.wenslo.fluent.security.annotation.Permission> anEnum : result) {
                 String name = anEnum.name();
                 String describe = (String) describeMethod.invoke(anEnum, new Object[]{});
                 String groupName = (String) groupMethod.invoke(anEnum, new Object[]{});
