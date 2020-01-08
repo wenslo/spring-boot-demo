@@ -7,5 +7,14 @@ package com.github.wenslo.springbootdemo.dto.system.user;
  * @description
  */
 public class UserPageDTO extends SimpleUser {
+
     private Boolean enabled;
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
 }
