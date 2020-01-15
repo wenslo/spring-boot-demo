@@ -109,7 +109,6 @@ project(":core") {
         api("org.jxls:jxls-poi:1.1.0")
         api("org.jxls:jxls-jexcel:1.0.8")
         api("mysql:mysql-connector-java:5.1.44")
-        api("org.projectlombok:lombok:1.18.10")
         testApi("mysql:mysql-connector-java:5.1.44")
         testApi("org.springframework.boot:spring-boot-starter-test")
 //        testApi("org.springframework.security:spring-security-test")
