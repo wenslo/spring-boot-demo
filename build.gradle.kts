@@ -2,31 +2,31 @@ import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 buildscript {
     repositories {
-        val repos by extra {
-            listOf(
-                    "http://maven.aliyun.com/nexus/content/groups/public",
-                    "https://jcenter.bintray.com/",
-                    "https://plugins.gradle.org/m2/",
-                    "https://repo.spring.io/milestone"
-            )
-        }
-        repositories {
-            for (u in repos) {
-                maven(u)
-            }
-            google()
-            mavenCentral()
-            mavenLocal()
-        }
-//        maven("http://127.0.0.1:8081/repository/maven-public/") {
-//            credentials(HttpHeaderCredentials::class.java) {
-//                name = "wenslo-user"
-//                value = "123456"
-//            }
-//            authentication {
-//                register("header", HttpHeaderAuthentication::class)
-//            }
+        //        val repos by extra {
+//            listOf(
+//                    "http://maven.aliyun.com/nexus/content/groups/public",
+//                    "https://jcenter.bintray.com/",
+//                    "https://plugins.gradle.org/m2/",
+//                    "https://repo.spring.io/milestone"
+//            )
 //        }
+//        repositories {
+//            for (u in repos) {
+//                maven(u)
+//            }
+//            google()
+//            mavenCentral()
+//            mavenLocal()
+//        }
+        maven("http://127.0.0.1:8081/repository/maven-public/") {
+            credentials(HttpHeaderCredentials::class.java) {
+                name = "wenslo-user"
+                value = "123456"
+            }
+            authentication {
+                register("header", HttpHeaderAuthentication::class)
+            }
+        }
     }
 }
 
@@ -120,6 +120,6 @@ project(":api") {
         api(project(":core"))
         api("com.fasterxml.jackson.datatype:jackson-datatype-hibernate5")
         testApi("org.springframework.boot:spring-boot-starter-test")
-//        testApi("org.springframework.security:spring-security-test")
+        testApi("org.springframework.security:spring-security-test")
     }
 }
