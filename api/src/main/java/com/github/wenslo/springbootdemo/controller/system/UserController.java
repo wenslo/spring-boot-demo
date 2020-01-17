@@ -17,6 +17,7 @@ import com.github.wenslo.springbootdemo.service.system.UserService;
 import com.github.wenslo.springbootdemo.util.BeanUtil;
 import com.github.wenslo.springbootdemo.util.ExcelUtil;
 import com.google.common.collect.Maps;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,13 +58,17 @@ public class UserController extends BaseController {
     @RequestMapping("/save")
     public Response save(@RequestBody UserSaveDTO dto) {
         User user = new User();
-        if (Objects.nonNull(dto.getId())) {
-            BeanUtil.copyProperties(dto, user, "password");
+        Long userId = dto.getId();
+        if (Objects.nonNull(userId)) {
+            user = userService.get(userId);
         }
-        user.setRoles(dto.getRoles().stream().map(role -> modelMapper.map(role, Role.class)).collect(Collectors.toList()));
-        userService.save(user);
+        BeanUtil.copyProperties(dto, user);
+        if (CollectionUtils.isNotEmpty(dto.getRoles())) {
+            user.setRoles(dto.getRoles().stream().map(role -> modelMapper.map(role, Role.class)).collect(Collectors.toList()));
+        }
+        User save = userService.save(user);
         logger.debug("That be saved user is {}", gson.toJson(user));
-        return Response.SUCCESS;
+        return Response.success(save);
     }
 
 
