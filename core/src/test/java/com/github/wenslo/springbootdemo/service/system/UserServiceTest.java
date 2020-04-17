@@ -27,7 +27,7 @@ public class UserServiceTest extends DBTestCase {
     @Test
     public void testFindAll() {
         UserCondition condition = new UserCondition();
-        condition.setUsername("user2");
+        condition.setUsername("admin");
         Pageable pageable = new Pageable();
         Page<User> page = userService.getByCondition(condition, pageable);
         logger.debug("page data is {}", page);
