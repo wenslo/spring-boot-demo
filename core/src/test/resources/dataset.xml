@@ -4,7 +4,7 @@
     <user id="-1" username="admin" password="1234"
           created_at="2018-11-25 07:15:07"
           updated_at="2018-11-25 07:15:16" account_non_expired="0" account_non_locked="0" credentials_non_expired="0"
-          enabled="1" nickname="小白" permission="super_admin"
+          enabled="1" nickname="小白"
           avatar="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png"/>
 
     <user id="-2" username="admin2" password="1234" created_at="2018-11-25 07:15:07"
@@ -15,9 +15,12 @@
     <role id="-1" created_at="2018-11-25 07:15:07" updated_at="2018-11-25 07:15:16" name="user manager"
           permission="user_password_reset"
           description="这就是个测试角色" enabled="1"/>
-
+    <role id="-2" created_at="2020-04-20 18:45:57" updated_at="2020-04-20 18:46:01" name="SuperAdmin"
+          permission="super_admin"
+          description="超级管理员角色" enabled="1"/>
     <!-- user_role -->
     <user_role user_id="-1" role_id="-1"/>
+    <user_role user_id="-1" role_id="-2"/>
     <!-- organization -->
     <organization id="-1" created_at="2018-12-31 16:47:20" updated_at="2018-12-31 16:47:17" full_name="测试总部集团"
                   name="总部集团" district_code="110105" address="北京市海淀区西直门" contract_name="西门吹雪"
