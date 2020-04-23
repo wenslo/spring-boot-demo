@@ -36,7 +36,6 @@ public class User extends LongIdEntity implements UserDetails {
     @Column(name = "username")
     private String username;
     /** 密码 **/
-    @NotBlank(message = "密码不能为空")
     @Column(name = "password")
     private String password;
     @NotBlank(message = "昵称不能为空")

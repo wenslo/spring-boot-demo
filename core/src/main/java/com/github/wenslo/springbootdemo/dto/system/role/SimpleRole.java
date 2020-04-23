@@ -11,4 +11,13 @@ import com.github.wenslo.fluent.core.dto.LongIdDTO;
 public class SimpleRole extends LongIdDTO {
     /** 角色名称 **/
     private String name;
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

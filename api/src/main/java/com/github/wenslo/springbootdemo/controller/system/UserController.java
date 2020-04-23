@@ -7,9 +7,7 @@ import com.github.wenslo.springbootdemo.controller.BaseController;
 import com.github.wenslo.springbootdemo.dto.system.StatusDTO;
 import com.github.wenslo.springbootdemo.dto.system.role.SimpleRole;
 import com.github.wenslo.springbootdemo.dto.system.user.ResetPasswordDTO;
-import com.github.wenslo.springbootdemo.dto.system.user.UserDetailDTO;
 import com.github.wenslo.springbootdemo.dto.system.user.UserPageDTO;
-import com.github.wenslo.springbootdemo.dto.system.user.UserSaveDTO;
 import com.github.wenslo.springbootdemo.model.system.Role;
 import com.github.wenslo.springbootdemo.model.system.User;
 import com.github.wenslo.springbootdemo.service.system.RoleService;
@@ -56,7 +54,7 @@ public class UserController extends BaseController {
     private ExcelUtil excelUtil;
 
     @RequestMapping("/save")
-    public Response save(@RequestBody UserSaveDTO dto) {
+    public Response save(@RequestBody UserPageDTO dto) {
         User user = new User();
         Long userId = dto.getId();
         if (Objects.nonNull(userId)) {
@@ -67,8 +65,8 @@ public class UserController extends BaseController {
             user.setRoles(dto.getRoles().stream().map(role -> modelMapper.map(role, Role.class)).collect(Collectors.toList()));
         }
         User save = userService.save(user);
-        logger.debug("That be saved user is {}", gson.toJson(user));
-        return Response.success(save);
+        logger.debug("That saved user is {}", gson.toJson(user));
+        return Response.success(save.getId());
     }
 
 
@@ -98,7 +96,7 @@ public class UserController extends BaseController {
     @RequestMapping("/detail/{id}")
     public Response detail(@PathVariable Long id) {
         User user = userService.get(id);
-        UserDetailDTO dto = modelMapper.map(user, UserDetailDTO.class);
+        UserPageDTO dto = modelMapper.map(user, UserPageDTO.class);
         return Response.success(dto);
     }
 
