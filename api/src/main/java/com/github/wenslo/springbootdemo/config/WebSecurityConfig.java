@@ -1,12 +1,8 @@
 package com.github.wenslo.springbootdemo.config;
 
 import com.github.wenslo.fluent.security.filter.CustomAuthenticationFilter;
-import com.github.wenslo.fluent.security.provider.MainAccessDeniedHandler;
-import com.github.wenslo.fluent.security.provider.MainAuthenticationEntryPoint;
-import com.github.wenslo.fluent.security.provider.MainAuthenticationFailureHandler;
-import com.github.wenslo.fluent.security.provider.MainAuthenticationProvider;
-import com.github.wenslo.fluent.security.provider.MainAuthenticationSuccessHandler;
-import com.github.wenslo.fluent.security.provider.MainLogoutSuccessHandler;
+import com.github.wenslo.fluent.security.provider.*;
+import com.github.wenslo.springbootdemo.security.AuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -33,7 +29,7 @@ import org.springframework.web.cors.CorsUtils;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private MainAuthenticationProvider mainAuthenticationProvider;
+    private AuthenticationProvider authenticationProvider;
     @Autowired
     private MainAuthenticationEntryPoint mainAuthenticationEntryPoint;
     @Autowired
@@ -48,35 +44,35 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .cors()
-            .and()
-            .antMatcher("/**").authorizeRequests()
-            .antMatchers("/login**").permitAll()
-            .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-            .anyRequest().authenticated()
-            .and()
-            .formLogin()
-            .loginPage("/login_page")
-            .permitAll()
-            .and()
-            .logout()
-            .permitAll()
-            .logoutSuccessHandler(mainLogoutSuccessHandler)
-            .clearAuthentication(true)
-            .invalidateHttpSession(true)
-            .and()
-            .csrf()
-            .disable()
-            .cors()
-            .and()
-            .authenticationProvider(mainAuthenticationProvider)
-            .exceptionHandling()
-            .authenticationEntryPoint(mainAuthenticationEntryPoint)
-            .accessDeniedHandler(mainAccessDeniedHandler)
-            .and()
-            .sessionManagement()
-            .maximumSessions(3)
-            .sessionRegistry(sessionRegistry())
+                .cors()
+                .and()
+                .antMatcher("/**").authorizeRequests()
+                .antMatchers("/login**").permitAll()
+                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login_page")
+                .permitAll()
+                .and()
+                .logout()
+                .permitAll()
+                .logoutSuccessHandler(mainLogoutSuccessHandler)
+                .clearAuthentication(true)
+                .invalidateHttpSession(true)
+                .and()
+                .csrf()
+                .disable()
+                .cors()
+                .and()
+                .authenticationProvider(authenticationProvider)
+                .exceptionHandling()
+                .authenticationEntryPoint(mainAuthenticationEntryPoint)
+                .accessDeniedHandler(mainAccessDeniedHandler)
+                .and()
+                .sessionManagement()
+                .maximumSessions(3)
+                .sessionRegistry(sessionRegistry())
 
         ;
         http.addFilterAt(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

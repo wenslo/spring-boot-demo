@@ -57,7 +57,7 @@ public class User extends LongIdEntity implements UserDetails {
     /** 账户是否锁定 **/
     @Column(name = "account_non_locked")
     private boolean accountNonLocked;
-    /** 凭证未过期 **/
+    /** 凭证是否未过期 **/
     @Column(name = "credentials_non_expired")
     private boolean credentialsNonExpired;
     /** 账户是否启用 **/

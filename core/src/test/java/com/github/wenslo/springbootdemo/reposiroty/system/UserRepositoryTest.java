@@ -35,7 +35,7 @@ public class UserRepositoryTest extends DBTestCase {
 
     @Test
     public void testFindByUsername() {
-        String username = "user1";
+        String username = "admin";
         User user = userRepository.findByUsername(username);
         Assert.assertNotNull(user);
         logger.debug("username is {} , findByUsername result is {},organizations is {}", user.getUsername(), user, user.getOrganizations());
@@ -43,7 +43,7 @@ public class UserRepositoryTest extends DBTestCase {
 
     @Test
     public void testQuerydsl() {
-        String username = "user1";
+        String username = "admin";
         QUser user = QUser.user;
         BooleanExpression booleanExpression = user.username.startsWith(username);
         Optional one = userRepository.findOne(booleanExpression);
