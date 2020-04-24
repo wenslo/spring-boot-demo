@@ -3,7 +3,7 @@ package com.github.wenslo.springbootdemo.model.system;
 import com.github.wenslo.fluent.data.model.LongIdEntity;
 import com.github.wenslo.springbootdemo.cache.PermissionCollector;
 import com.github.wenslo.springbootdemo.convert.StringListConverter;
-import com.github.wenslo.springbootdemo.permissions.AdminPermission;
+import com.github.wenslo.springbootdemo.permissions.SystemPermissions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.apache.commons.lang3.StringUtils;
@@ -188,7 +188,7 @@ public class User extends LongIdEntity implements UserDetails {
                 List<String> rolePermissions = it.getPermission();
                 if (!rolePermissions.isEmpty()) {
                     boolean match = rolePermissions.stream().anyMatch(
-                            authority -> StringUtils.contains(authority, AdminPermission.ADMIN.getAction()));
+                            authority -> StringUtils.contains(authority, SystemPermissions.ADMINISTRATOR));
                     if (match) {
                         authorities.addAll(PermissionCollector.permissionSet);
                     }

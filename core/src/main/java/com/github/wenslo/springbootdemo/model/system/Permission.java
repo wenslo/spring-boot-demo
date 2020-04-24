@@ -1,8 +1,6 @@
 package com.github.wenslo.springbootdemo.model.system;
 
 import java.io.Serializable;
-import java.util.List;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * @author wenhailin
@@ -10,95 +8,49 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  * @createTime 2018年12月10日 上午10:36
  * @description 权限DTO
  */
-public class Permission implements Serializable, Cloneable {
-
+public class Permission implements Serializable {
     /** 权限实际值 **/
-    private String action;
+    private String value;
     /** 权限描述 **/
-    private String describe;
-    private List<Permission> actions;
-
-    private String parentAction;
-    private String parentDescribe;
+    private String label;
+    /** 所属权限组 **/
+    private String group;
 
     public Permission() {
     }
 
-    public Permission(String action, String describe) {
-        this.action = action;
-        this.describe = describe;
+    public Permission(String label, String value, String group) {
+        this.value = value;
+        this.label = label;
+        this.group = group;
     }
 
-    public Permission builderParent(String parentAction, String parentDescribe) {
-        this.parentAction = parentAction;
-        this.parentDescribe = parentDescribe;
-        return this;
+    public String getValue() {
+        return value;
     }
 
-    public Permission buildActions(List<Permission> actions) {
-        this.actions = actions;
-        return this;
+    public void setValue(String value) {
+        this.value = value;
     }
 
-    public String getAction() {
-        return action;
+    public String getLabel() {
+        return label;
     }
 
-    public void setAction(String action) {
-        this.action = action;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getGroup() {
+        return group;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe;
-    }
-
-    public List<Permission> getActions() {
-        return actions;
-    }
-
-    public void setActions(List<Permission> actions) {
-        this.actions = actions;
-    }
-
-    public String getParentAction() {
-        return parentAction;
-    }
-
-    public void setParentAction(String parentAction) {
-        this.parentAction = parentAction;
-    }
-
-    public String getParentDescribe() {
-        return parentDescribe;
-    }
-
-    public void setParentDescribe(String parentDescribe) {
-        this.parentDescribe = parentDescribe;
-    }
-
-    @Override
-    public Permission clone() {
-        Permission permission = null;
-        try {
-            permission = (Permission) super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        return permission;
+    public void setGroup(String group) {
+        this.group = group;
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-            .append("action", action)
-            .append("describe", describe)
-            .append("actions", actions)
-            .append("parentAction", parentAction)
-            .append("parentDescribe", parentDescribe)
-            .toString();
+        return "Permission{" + "value='" + value + '\'' + ", label='" + label + '\'' + ", group='" + group + '\'' + '}';
     }
 }
