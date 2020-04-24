@@ -35,7 +35,7 @@ public class UserRepositoryTest extends DBTestCase {
 
     @Test
     public void testFindByUsername() {
-        String username = "admin2";
+        String username = "admin";
         User user = userRepository.findByUsername(username);
         Assert.assertNotNull(user);
         logger.debug("username is {} , findByUsername result is {},organizations is {}", user.getUsername(), user, user.getOrganizations());

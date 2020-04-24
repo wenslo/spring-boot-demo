@@ -1,21 +1,22 @@
 package com.github.wenslo.springbootdemo.cache;
 
-import static com.github.wenslo.fluent.security.annotation.Permission.SEPARATOR;
-
 import com.github.wenslo.springbootdemo.model.system.Permission;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import java.lang.reflect.Method;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static com.github.wenslo.fluent.security.annotation.Permission.SEPARATOR;
 
 /**
  * @author wenhailin
@@ -30,13 +31,14 @@ public class PermissionCollector implements CommandLineRunner {
     public static final List<Permission> permissionList = Lists.newArrayList();
     public static final Set<String> permissionSet = Sets.newHashSet();
 
+
     @SuppressWarnings("unchecked")
     @Override
     public void run(String... args) throws Exception {
-        logger.debug("-------------------------------------------permission collect preparing");
+        logger.debug("permission collect preparing");
         Reflections reflections = new Reflections("com.github.wenslo.springbootdemo.permissions");
         Set<Class<? extends com.github.wenslo.fluent.security.annotation.Permission>> types = reflections
-            .getSubTypesOf(com.github.wenslo.fluent.security.annotation.Permission.class);
+                .getSubTypesOf(com.github.wenslo.fluent.security.annotation.Permission.class);
         for (Class<? extends com.github.wenslo.fluent.security.annotation.Permission> it : types) {
             Method valuesMethod = it.getMethod("values");
             Method describeMethod = it.getMethod("getDescribe");
@@ -44,7 +46,7 @@ public class PermissionCollector implements CommandLineRunner {
             Method groupDescribeMethod = it.getMethod("getGroupDescribe");
 
             Enum<? extends com.github.wenslo.fluent.security.annotation.Permission>[] result = (Enum<? extends com.github.wenslo.fluent.security.annotation.Permission>[]) valuesMethod
-                .invoke(it, new Object[]{});
+                    .invoke(it, new Object[]{});
             List<Permission> list = Lists.newArrayList();
             for (Enum<? extends com.github.wenslo.fluent.security.annotation.Permission> anEnum : result) {
                 String name = anEnum.name();
@@ -62,6 +64,6 @@ public class PermissionCollector implements CommandLineRunner {
             logger.trace("permissionsCollect  is {}", permissionList);
 
         }
-        logger.debug("-------------------------------------------permission collect is end");
+        logger.debug("permission collect end");
     }
 }

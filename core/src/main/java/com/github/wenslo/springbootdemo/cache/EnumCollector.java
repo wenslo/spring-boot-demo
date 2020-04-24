@@ -4,15 +4,16 @@ import com.github.wenslo.fluent.core.domain.SimpleEnum;
 import com.github.wenslo.springbootdemo.enums.BaseEnum;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import java.lang.reflect.Method;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author wenhailin
@@ -29,7 +30,7 @@ public class EnumCollector implements CommandLineRunner {
     @SuppressWarnings("unchecked")
     @Override
     public void run(String... args) throws Exception {
-        logger.debug("-------------------------------------------enum collect preparing");
+        logger.debug("enum collect begin");
         Reflections reflections = new Reflections("com.github.wenslo.springbootdemo.enums");
         Set<Class<? extends BaseEnum>> types = reflections.getSubTypesOf(BaseEnum.class);
         for (Class<? extends BaseEnum> it : types) {
@@ -44,6 +45,6 @@ public class EnumCollector implements CommandLineRunner {
             enums.put(it.getSimpleName(), list);
             logger.trace("enums is {}", enums);
         }
-        logger.debug("-------------------------------------------enum collect is end");
+        logger.debug("enum collect end");
     }
 }

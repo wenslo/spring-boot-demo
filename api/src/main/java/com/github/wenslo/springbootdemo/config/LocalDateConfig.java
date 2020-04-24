@@ -1,25 +1,14 @@
 package com.github.wenslo.springbootdemo.config;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
-import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
-import com.github.wenslo.springbootdemo.util.LocalDateTimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 
 /**
  * @author wenhailin
@@ -29,6 +18,7 @@ import java.util.Objects;
  */
 @Configuration
 public class LocalDateConfig {
+    private static final Logger logger = LoggerFactory.getLogger(LocalDateConfig.class);
     /**
      * 默认日期时间格式
      */
@@ -47,6 +37,14 @@ public class LocalDateConfig {
     private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT);
 
     @Bean
+    @Primary
+    public ObjectMapper objectMapper() {
+        logger.info("register object mapper of java time moudle.");
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        return objectMapper;
+    }
+/*    @Bean
     public ObjectMapper objectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
         JavaTimeModule javaTimeModule = new JavaTimeModule();
@@ -76,5 +74,5 @@ public class LocalDateConfig {
         objectMapper.registerModule(javaTimeModule).registerModule(new ParameterNamesModule()).registerModule(new Hibernate5Module());
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         return objectMapper;
-    }
+    }*/
 }
