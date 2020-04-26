@@ -1,6 +1,7 @@
 package com.github.wenslo.springbootdemo.controller.system;
 
 import com.github.wenslo.fluent.core.domain.Response;
+import com.github.wenslo.springbootdemo.condition.system.RoleCondition;
 import com.github.wenslo.springbootdemo.condition.system.UserCondition;
 import com.github.wenslo.springbootdemo.controller.BaseController;
 import com.github.wenslo.springbootdemo.dto.system.StatusDTO;
@@ -114,6 +115,13 @@ public class UserController extends BaseController {
         user.setEnabled(dto.isEnabled());
         userService.save(user);
         return Response.SUCCESS;
+    }
+
+    @RequestMapping("/getAllRole")
+    public Response getAllRole() {
+        RoleCondition roleCondition = new RoleCondition();
+        roleCondition.setEnabled(true);
+        return Response.success(roleService.getByCondition(roleCondition));
     }
 
     @RequestMapping("/export")

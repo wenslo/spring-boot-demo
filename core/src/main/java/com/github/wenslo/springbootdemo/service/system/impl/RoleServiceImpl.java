@@ -42,6 +42,10 @@ public class RoleServiceImpl extends LongIdServiceImpl<Role, RoleCondition> impl
         if (StringUtils.isNotBlank(roleName)) {
             builder.and(role.name.startsWith(roleName));
         }
+        Boolean enabled = condition.getEnabled();
+        if (Objects.nonNull(enabled)) {
+            builder.and(role.enabled.eq(enabled));
+        }
         conditionBuilder.add(builder);
         return conditionBuilder;
     }
