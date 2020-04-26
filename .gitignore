@@ -117,3 +117,5 @@ src/main/generated
 /api/src/main/resources/includedConfig.xml
 /api/src/main/resources/secret.xml
 /api/src/main/resources/secret.yaml
+build/
+*/build
