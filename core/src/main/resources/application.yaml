@@ -1,4 +1,7 @@
 spring:
+  jackson:
+    serialization:
+      write_dates_as_timestamps: false
   datasource:
     url: jdbc:h2:file:~/h2/spring-boot-demo;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driver-class-name: org.h2.Driver

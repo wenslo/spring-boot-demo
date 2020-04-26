@@ -1,10 +1,9 @@
 spring:
   jackson:
-    date-format: yyyy-MM-dd HH:mm:ss.SSS
-    time-zone: GMT+
-    defaultPropertyInclusion: non_null
-    deserialization:
-      FAIL_ON_UNKNOWN_PROPERTIES: false
+    serialization:
+      write_dates_as_timestamps: false
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
   datasource:
     url: jdbc:h2:file:~/h2/spring-boot-demo;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driver-class-name: org.h2.Driver

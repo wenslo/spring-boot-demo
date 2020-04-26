@@ -6,14 +6,13 @@ import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * spring boot starter
  */
 @SpringBootApplication(exclude = {MongoAutoConfiguration.class})
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-@EnableWebMvc
+//@EnableWebMvc
 @EnableWebSecurity
 @Import({CommonConfig.class, JpaConfig.class})
 public class SpringBootDemoApplication {
