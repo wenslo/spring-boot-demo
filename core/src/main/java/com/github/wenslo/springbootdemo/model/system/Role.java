@@ -6,8 +6,10 @@ import com.github.wenslo.springbootdemo.convert.StringListConverter;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author wenhailin
@@ -29,6 +31,10 @@ public class Role extends LongIdEntity {
     @Column(name = "permission", length = 1024)
     @Convert(converter = StringListConverter.class)
     private List<String> permission;
+
+    /** 权限转换为对象，方便前台使用 **/
+    @Transient
+    private Map<String, List<String>> convertedPermission;
 
     public Role() {
     }
@@ -77,9 +83,18 @@ public class Role extends LongIdEntity {
         this.permission = permission;
     }
 
+    public Map<String, List<String>> getConvertedPermission() {
+        return convertedPermission;
+    }
+
+    public void setConvertedPermission(Map<String, List<String>> convertedPermission) {
+        this.convertedPermission = convertedPermission;
+    }
+
     @Override
     public String toString() {
         return "Role{" + "name='" + name + '\'' + ", description='" + description + '\'' + ", enabled=" + enabled
                 + ", permission=" + permission + '}';
     }
+
 }

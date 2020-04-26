@@ -53,4 +53,6 @@ public class Permission implements Serializable {
     public String toString() {
         return "Permission{" + "value='" + value + '\'' + ", label='" + label + '\'' + ", group='" + group + '\'' + '}';
     }
+
+
 }

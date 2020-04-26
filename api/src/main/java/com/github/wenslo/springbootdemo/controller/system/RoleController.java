@@ -8,6 +8,7 @@ import com.github.wenslo.springbootdemo.dto.system.StatusDTO;
 import com.github.wenslo.springbootdemo.model.system.Role;
 import com.github.wenslo.springbootdemo.service.system.RoleService;
 import com.github.wenslo.springbootdemo.util.BeanUtil;
+import com.github.wenslo.springbootdemo.util.PermissionUtil;
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,7 +57,9 @@ public class RoleController extends BaseController {
 
     @RequestMapping("/detail/{id}")
     public Response detail(@PathVariable Long id) {
-        return Response.success(roleService.get(id));
+        Role role = roleService.get(id);
+        role.setConvertedPermission(PermissionUtil.convertPermissionGroup(role.getPermission()));
+        return Response.success(role);
     }
 
     @RequestMapping("/remove/{id}")

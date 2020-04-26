@@ -37,43 +37,8 @@ public class LoginRegController {
         User user = (User) SecurityUtil.getLoginUser();
         user.setPassword(null);
         map.put("user", user);
-//        List<String> userPermissions = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-//        boolean isAdministrator = userPermissions.stream().anyMatch(it -> StringUtils.contains(it, SystemPermissions.ADMINISTRATOR));
-//        if (isAdministrator) {
-//            map.put("permissions", PermissionCollector.permissionSet);
-//        } else {
-//            List<Permission> result = permissionConvert(userPermissions);
-//            map.put("permissions", result);
-//        }
         map.put("enums", enumCollector.enums);
         return Response.success(map);
     }
-
-//    private List<Permission> permissionConvert(List<String> userPermissions) {
-//        List<Permission> result = Lists.newArrayList();
-//        Map<String, List<String>> splitByUnderline = userPermissions.stream().collect(Collectors.groupingBy(it -> it.split(SEPARATOR)[0]));
-//        logger.info("collect is {}", splitByUnderline);
-//        PermissionCollector.permissionList.forEach(p -> {
-//            List<String> actions = splitByUnderline.get(p.getAction());
-//            if (CollectionUtils.isNotEmpty(actions)) {
-//                Permission permission = p.clone();
-//                List<Permission> elderlyPermission = p.getActions();
-//                List<Permission> subPermission = Lists.newArrayList();
-//                permission.setActions(subPermission);
-//                actions.forEach(action -> {
-//                    Permission containsPermission = elderlyPermission.stream().filter(it -> StringUtils.isNotBlank(it.getParentAction()))
-//                            .filter(it -> Objects
-//                                    .equals(StringUtils.join(it.getParentAction().toLowerCase(), SEPARATOR + it.getAction().toLowerCase()), action))
-//                            .findFirst().orElse(null);
-//                    if (Objects.nonNull(containsPermission)) {
-//                        subPermission.add(containsPermission);
-//                    }
-//                });
-//                result.add(permission);
-//            }
-//        });
-//        return result;
-//    }
-
 
 }
