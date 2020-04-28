@@ -13,7 +13,10 @@ import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import com.github.wenslo.fluent.data.util.LocalDateTimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -48,9 +51,10 @@ public class LocalDateConfig {
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT);
     private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT);
 
-    //    @Bean
-    public ObjectMapper objectMapper() {
-        ObjectMapper objectMapper = new ObjectMapper();
+    @Bean
+    @Primary
+    public ObjectMapper jacksonObjectMapper(Jackson2ObjectMapperBuilder builder) {
+        ObjectMapper objectMapper = builder.createXmlMapper(false).build();
         JavaTimeModule javaTimeModule = new JavaTimeModule();
         // LocalDate
         javaTimeModule.addSerializer(LocalDate.class, new LocalDateSerializer(dateFormatter));
@@ -74,8 +78,10 @@ public class LocalDateConfig {
                 return Objects.isNull(string) ? null : LocalDateTime.parse(string, dateTimeFormatter);
             }
         });
-
-        objectMapper.findAndRegisterModules().registerModule(javaTimeModule).registerModule(new ParameterNamesModule()).registerModule(new Hibernate5Module());
+        //.registerModule(new Hibernate5Module())
+        Hibernate5Module hibernate5Module = new Hibernate5Module();
+        hibernate5Module.disable(Hibernate5Module.Feature.USE_TRANSIENT_ANNOTATION);
+        objectMapper.registerModule(javaTimeModule).registerModule(new ParameterNamesModule()).registerModule(hibernate5Module);
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         return objectMapper;
     }
