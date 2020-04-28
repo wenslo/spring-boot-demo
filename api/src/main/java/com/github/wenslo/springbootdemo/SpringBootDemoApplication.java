@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
  */
 @SpringBootApplication(exclude = {MongoAutoConfiguration.class})
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-//@EnableWebMvc
 @EnableWebSecurity
 @Import({CommonConfig.class, JpaConfig.class})
 public class SpringBootDemoApplication {

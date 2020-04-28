@@ -59,6 +59,7 @@ public class RoleController extends BaseController {
     public Response detail(@PathVariable Long id) {
         Role role = roleService.get(id);
         role.setConvertedPermission(PermissionUtil.convertPermissionGroup(role.getPermission()));
+        logger.info("converted permission is {}", role.getConvertedPermission());
         return Response.success(role);
     }
 
