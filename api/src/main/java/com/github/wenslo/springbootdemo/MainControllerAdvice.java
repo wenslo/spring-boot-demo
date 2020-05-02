@@ -49,6 +49,9 @@ public class MainControllerAdvice {
             if ("FOREIGN KEY".contains(jdbcSQLException.getMessage())) {
                 return Response.error("绑定数据存在，无法进行删除或修改");
             }
+            if (StringUtils.containsIgnoreCase("Unique", jdbcSQLException.getMessage())) {
+                return Response.error("数据重复！");
+            }
         }
         logger.error("Catching exception ", t);
         return Response.error(t.getMessage());

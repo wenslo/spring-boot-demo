@@ -27,6 +27,8 @@ public class SystemPermissions {
 
     @Permission(value = "用户删除", group = USER_PERMISSION)
     public static final String USER_DELETE = "USER_DELETE";
+    @Permission(value = "用户密码重置", group = USER_PERMISSION)
+    public static final String USER_PWD_RESET = "USER_PWD_RESET";
 
     //-------------------------角色相关权限------------------------------
     private static final String ROLE_PERMISSION = "角色权限";
