@@ -95,7 +95,6 @@ subprojects {
             classifier = "sources"
             from(sourceSets.main.get().allJava)
         }
-
     }
 }
 
@@ -111,6 +110,10 @@ project(":core") {
         api("mysql:mysql-connector-java:5.1.44")
         testApi("mysql:mysql-connector-java:5.1.44")
         testApi("org.springframework.boot:spring-boot-starter-test")
+        testApi(kotlin("stdlib"))
+        testApi(kotlin("reflect"))
+        testApi(kotlin("test"))
+        testApi(kotlin("test-junit"))
     }
 }
 
@@ -122,5 +125,6 @@ project(":api") {
 
         testApi("org.springframework.boot:spring-boot-starter-test")
         testApi("org.springframework.security:spring-security-test")
+
     }
 }
