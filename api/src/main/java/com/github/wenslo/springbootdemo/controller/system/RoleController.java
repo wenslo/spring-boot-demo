@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 import java.util.Objects;
+
+import static com.github.wenslo.springbootdemo.permissions.SystemPermissions.*;
 
 /**
  * @author wenhailin
@@ -37,6 +40,7 @@ public class RoleController extends BaseController {
     private RoleService roleService;
 
     @RequestMapping("/save")
+    @PreAuthorize("hasAuthority('" + ROLE_ADD + "')")
     public Response save(@RequestBody Role role) {
         logger.debug("That be saved role is {}", gson.toJson(role));
         if (Objects.nonNull(role.getId())) {
@@ -50,12 +54,14 @@ public class RoleController extends BaseController {
     }
 
     @RequestMapping("/queryByPage")
+    @PreAuthorize("hasAuthority('" + ROLE_VIEW + "')")
     public Page<Role> queryByPage(@RequestBody RoleCondition condition) {
         logger.debug("The currently operator is {}, condition is {}", getLoginUsername(), gson.toJson(condition));
         return roleService.getByCondition(condition, condition.getPageable());
     }
 
     @RequestMapping("/detail/{id}")
+    @PreAuthorize("hasAuthority('" + ROLE_VIEW + "')")
     public Response detail(@PathVariable Long id) {
         Role role = roleService.get(id);
         role.setConvertedPermission(PermissionUtil.convertPermissionGroup(role.getPermission()));
@@ -64,6 +70,7 @@ public class RoleController extends BaseController {
     }
 
     @RequestMapping("/remove/{id}")
+    @PreAuthorize("hasAuthority('" + ROLE_DELETE + "')")
     public Response remove(@PathVariable Long id) {
         Map<Long, Long> map = roleService.groupingUserCountByRoles(Lists.newArrayList(new Role(id)));
         logger.debug("grouping user map is {} ", gson.toJson(map));
@@ -76,6 +83,7 @@ public class RoleController extends BaseController {
     }
 
     @RequestMapping("/status")
+    @PreAuthorize("hasAuthority('" + ROLE_UPDATE + "')")
     public Response changeEnabledStatus(@RequestBody StatusDTO dto) {
         Role role = roleService.get(dto.getId());
         role.setEnabled(dto.isEnabled());
@@ -84,6 +92,7 @@ public class RoleController extends BaseController {
     }
 
     @RequestMapping("/allPermission")
+    @PreAuthorize("hasAuthority('" + ROLE_VIEW + "')")
     public Response allPermission() {
         return Response.success(PermissionCollector.permissionMap);
     }

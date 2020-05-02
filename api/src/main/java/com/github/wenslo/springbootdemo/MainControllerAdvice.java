@@ -8,6 +8,7 @@ import org.h2.jdbc.JdbcSQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -43,6 +44,9 @@ public class MainControllerAdvice {
             DataIntegrityViolationException dataIntegrityViolationException = (DataIntegrityViolationException) t;
             String msg = getErrorMsg(dataIntegrityViolationException);
             return populateUniqueErrorTip(msg);
+        }
+        if (t instanceof AccessDeniedException) {
+            return Response.FORBIDDEN;
         }
         if (t instanceof JdbcSQLException) {
             JdbcSQLException jdbcSQLException = (JdbcSQLException) t;

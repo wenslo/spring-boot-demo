@@ -102,8 +102,8 @@ subprojects {
 project(":core") {
     dependencies {
         kapt("com.querydsl:querydsl-apt:${querydslVersion}:jpa")
-        api("com.github.wenslo.fluent:fluent-security:1.0.8-RELEASE")
-        api("com.github.wenslo.fluent:fluent-data-jpa:1.0.8-RELEASE")
+        api("com.github.wenslo.fluent:fluent-security:1.0.10-RELEASE")
+        api("com.github.wenslo.fluent:fluent-data-jpa:1.0.10-RELEASE")
         api("com.h2database:h2")
         api("org.jxls:jxls:2.5.1")
         api("org.jxls:jxls-poi:1.1.0")
@@ -111,7 +111,6 @@ project(":core") {
         api("mysql:mysql-connector-java:5.1.44")
         testApi("mysql:mysql-connector-java:5.1.44")
         testApi("org.springframework.boot:spring-boot-starter-test")
-//        testApi("org.springframework.security:spring-security-test")
     }
 }
 

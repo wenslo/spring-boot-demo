@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import static com.github.wenslo.springbootdemo.permissions.SystemPermissions.*;
 
 /**
  * @author wenhailin
@@ -54,6 +57,7 @@ public class UserController extends BaseController {
     private ExcelUtil excelUtil;
 
     @RequestMapping("/save")
+    @PreAuthorize("hasAuthority('" + USER_ADD + "')")
     public Response save(@RequestBody UserPageDTO dto) {
         User user = new User();
         Long userId = dto.getId();
@@ -71,6 +75,7 @@ public class UserController extends BaseController {
 
 
     @RequestMapping("/queryByPage")
+    @PreAuthorize("hasAuthority('" + USER_VIEW + "')")
     public Page<UserPageDTO> queryByPage(@RequestBody UserCondition condition) {
         logger.debug("The currently operator is {}, condition is {}", getLoginUsername(), gson.toJson(condition));
         Page<User> page = userService.getByCondition(condition, condition.getPageable());
@@ -87,6 +92,7 @@ public class UserController extends BaseController {
     }
 
     @RequestMapping("/remove/{id}")
+    @PreAuthorize("hasAuthority('" + USER_DELETE + "')")
     public Response remove(@PathVariable Long id) {
         logger.debug("be remove user id is {}", id);
         userService.remove(id);
@@ -94,6 +100,7 @@ public class UserController extends BaseController {
     }
 
     @RequestMapping("/detail/{id}")
+    @PreAuthorize("hasAuthority('" + USER_VIEW + "')")
     public Response detail(@PathVariable Long id) {
         User user = userService.get(id);
         UserPageDTO dto = modelMapper.map(user, UserPageDTO.class);
@@ -101,6 +108,7 @@ public class UserController extends BaseController {
     }
 
     @RequestMapping("/reset")
+    @PreAuthorize("hasAuthority('" + USER_PWD_RESET + "')")
     public Response reset(@RequestBody ResetPasswordDTO dto) {
         logger.debug("be reset password user id is  {}", dto.getId());
         User user = userService.get(dto.getId());
@@ -110,6 +118,7 @@ public class UserController extends BaseController {
     }
 
     @RequestMapping("/status")
+    @PreAuthorize("hasAuthority('" + USER_UPDATE + "')")
     public Response changeStatus(@RequestBody StatusDTO dto) {
         User user = userService.get(dto.getId());
         user.setEnabled(dto.isEnabled());
@@ -118,6 +127,7 @@ public class UserController extends BaseController {
     }
 
     @RequestMapping("/getAllRole")
+    @PreAuthorize("hasAuthority('" + USER_VIEW + "')")
     public Response getAllRole() {
         RoleCondition roleCondition = new RoleCondition();
         roleCondition.setEnabled(true);
