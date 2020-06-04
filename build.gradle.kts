@@ -69,6 +69,7 @@ allprojects {
         }
     }
 }
+var profileActive = System.getProperty("profile") ?: "test"
 subprojects {
     apply(plugin = "java")
     apply(plugin = "idea")
@@ -90,6 +91,16 @@ subprojects {
         }
         "bootJar"(BootJar::class) {
             enabled = false
+        }
+        "bootRun"(org.springframework.boot.gradle.tasks.run.BootRun::class) {
+            systemProperty("spring.profiles.active", "$profileActive")
+        }
+        "processResources"(ProcessResources::class) {
+            filesMatching("*.yaml") {
+                filter {
+                    it.replace("profileActive", "$profileActive")
+                }
+            }
         }
         create("sourcesJar", Jar::class) {
             classifier = "sources"
@@ -118,6 +129,7 @@ project(":core") {
 }
 
 project(":api") {
+
     dependencies {
         api(project(":core"))
         api("com.fasterxml.jackson.datatype:jackson-datatype-hibernate5")
